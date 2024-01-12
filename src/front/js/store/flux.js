@@ -21,6 +21,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			createArtist: (name, url) => {
+				const requestOptions = {
+					method: 'POST',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(
+						{
+							"name":name,
+							"img_url":url
+						}
+					)
+				};
+				  
+				fetch(process.env.BACKEND_URL + "/api/artist", requestOptions)
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.catch(error => console.log('error', error));
+			},
+
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
