@@ -15,6 +15,7 @@ export const Artist = () => {
 
 	return (
 		<div className="container mt-5">
+            <h1 className="text-center mt-3">Create new Artist</h1>
             <div className="col-md-6">
                 <form>
                     <div className="mb-3">
