@@ -27,6 +27,12 @@ def get_artist():
 
     return jsonify(results), 200
 
+@api.route('/artist/<int:artist_id>', methods=['GET'])
+def get_single_artist(artist_id):
+    artist = Artist.query.filter_by(id=artist_id).first()
+    
+    return jsonify(artist.serialize()), 200
+
 @api.route('/artist', methods=['POST'])
 def create_artist():
     body = request.get_json()
@@ -34,7 +40,8 @@ def create_artist():
     db.session.add(new_artist)
     db.session.commit()
     response_body = {
-        'msg': 'New artist has been created.'
+        'msg': 'New artist has been created.',
+        "new_artist": new_artist
     }
 
     return jsonify(response_body), 200
