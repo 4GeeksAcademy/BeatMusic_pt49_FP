@@ -41,7 +41,33 @@ def create_artist():
     db.session.commit()
     response_body = {
         'msg': 'New artist has been created.',
-        "new_artist": new_artist
+        "new_artist": new_artist.name
     }
 
     return jsonify(response_body), 200
+
+@api.route('/artist/<int:artist_id>', methods=['DELETE'])
+def delete_artist(artist_id):
+    deleted_artist = Artist.query.filter_by(id=artist_id).first()
+    db.session.delete(deleted_artist)
+    db.session.commit()
+    response_body = {
+        'msg': 'Artist has been deleted.'
+    }
+
+    return jsonify(response_body), 200
+
+@api.route('/artist/<int:artist_id>', methods=['PUT'])
+def edit_artist(artist_id):
+    artist_to_update = Artist.query.filter_by(id=artist_id).first()
+    body = request.get_json()
+    artist_to_update.name = body['name']
+    artist_to_update.img_url = body['img_url']
+    db.session.commit()
+    response_body = {
+        "msg": "The artist has been updated.",
+        "name": artist_to_update.name,
+        "img_url": artist_to_update.img_url,
+    }
+    return jsonify(response_body), 200
+
