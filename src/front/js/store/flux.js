@@ -13,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			artist: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -37,6 +38,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(response => response.text())
 				.then(result => console.log(result))
 				.catch(error => console.log('error', error));
+			},
+
+			getArtist: () => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				  };
+				  
+				  fetch(process.env.BACKEND_URL + "/api/artist", requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ artist: data }))
+					.catch(error => console.log('error', error));
 			},
 
 			getMessage: async () => {
