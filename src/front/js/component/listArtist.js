@@ -30,7 +30,7 @@ export const ListArtist = () => {
                         </div>
                     </div>
                 </li>
-				{store.artist.map((item, index) => {
+				{store.artist.map((item) => {
 					return (
 						<li key={item.id} className="list-group-item">
 							<div className="row">
