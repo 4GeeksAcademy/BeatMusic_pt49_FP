@@ -14,7 +14,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			artist: []
+			artist: [],
+			singleArtist: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -42,20 +43,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getArtist: () => {
-				const store = getStore();
 				var requestOptions = {
 					method: 'GET',
 					redirect: 'follow'
-				  };
+				};
 				  
-				  fetch(process.env.BACKEND_URL + "/api/artist", requestOptions)
-					.then(response => response.json())
-					.then(data => setStore({ artist: data }))
-					.catch(error => console.log('error', error));
+				fetch(process.env.BACKEND_URL + "/api/artist", requestOptions)
+				.then(response => response.json())
+				.then(data => setStore({ artist: data }))
+				.catch(error => console.log('error', error));
+			},
+
+			getSingleArtist: (id) => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+				  
+				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
+				.then(response => response.json())
+				.then(data => setStore({ singleArtist: data }))
+				.catch(error => console.log('error', error));
 			},
 
 			deleteArtist: (id) => {
-				const store = getActions();
 				var requestOptions = {
 				method: 'DELETE',
 				redirect: 'follow'
