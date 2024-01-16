@@ -10,7 +10,7 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { Artist } from "./component/newartist";
+import { Artist } from "./component/newArtist";
 import { EditArtist } from "./component/editArtist";
 import { ListArtist } from "./component/listArtist";
 
@@ -31,7 +31,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Artist />} path="/admin/newartist" />
-                        <Route element={<EditArtist />} path="/admin/editartist/:id" />
+                        <Route element={<EditArtist />} path="/admin/editartist/:artist_id" />
                         <Route element={<ListArtist />} path="/admin/listartist" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
