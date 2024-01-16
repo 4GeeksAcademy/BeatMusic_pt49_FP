@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link, useNavigate } from "react-router-dom";
 
-export const Artist = () => {
+export const NewArtist = () => {
 	const { store, actions } = useContext(Context);
     const [name, setName] = useState('')
     const [url, setUrl] = useState('')
