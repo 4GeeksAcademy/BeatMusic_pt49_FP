@@ -64,12 +64,12 @@ export const ListArtist = () => {
 													<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
 												<div className="modal-body">
-													If you delete this thing, the entire universe will go down!
+													You will delete {item.name} from the list.
 												</div>
 												<div className="modal-footer">
-													<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Oh no!</button>
+													<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 													<Link to="/">
-														<button type="button" className="btn btn-primary" onClick={()=>actions.deleteContact(item.id)} data-bs-dismiss="modal" >Yes baby!</button>
+														<button type="button" className="btn btn-danger" onClick={()=>actions.deleteContact(item.id)} data-bs-dismiss="modal" >Confirm</button>
 													</Link>
 												</div>
 											</div>
