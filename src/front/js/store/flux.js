@@ -37,6 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/artist", requestOptions)
 				.then(response => response.text())
 				.then(result => console.log(result))
+				.then(() => getActions().getArtist())
 				.catch(error => console.log('error', error));
 			},
 
