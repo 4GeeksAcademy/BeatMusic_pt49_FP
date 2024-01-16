@@ -9,8 +9,7 @@ export const Artist = () => {
     const [url, setUrl] = useState('')
     const navigate = useNavigate();
 
-    function sendData(e){
-        e.preventDefault()
+    function sendData(){
         if (name !== "" && url !== "") {
             actions.createArtist(name, url);
             navigate("/admin/listartist");
