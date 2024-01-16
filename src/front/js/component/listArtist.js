@@ -68,8 +68,8 @@ export const ListArtist = () => {
 												</div>
 												<div className="modal-footer">
 													<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-													<Link to="/">
-														<button type="button" className="btn btn-danger" onClick={()=>actions.deleteContact(item.id)} data-bs-dismiss="modal" >Confirm</button>
+													<Link to="/admin/listartist">
+														<button type="button" className="btn btn-danger" onClick={()=>actions.deleteArtist(item.id)} data-bs-dismiss="modal" >Confirm</button>
 													</Link>
 												</div>
 											</div>
