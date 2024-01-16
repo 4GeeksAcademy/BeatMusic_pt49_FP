@@ -54,6 +54,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			deleteArtist: (id) => {
+				const store = getActions();
+				var requestOptions = {
+				method: 'DELETE',
+				redirect: 'follow'
+				};
+				  
+				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.then(() => getActions().getArtist())
+				.catch(error => console.log('error', error));
+			},
+
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
