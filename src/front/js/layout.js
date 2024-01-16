@@ -10,7 +10,7 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { Artist } from "./component/artist";
+import { Artist } from "./component/newartist";
 import { EditArtist } from "./component/editArtist";
 import { ListArtist } from "./component/listArtist";
 
