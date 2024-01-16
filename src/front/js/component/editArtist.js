@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link, useParams } from "react-router-dom";
@@ -7,11 +7,15 @@ import PropTypes from "prop-types";
 export const EditArtist = () => {
 	const { store, actions } = useContext(Context);
     const params = useParams();
-    const [name, setName] = useState('')
-    const [url, setUrl] = useState('')
+    const [name, setName] = useState(store.singleArtist.name)
+    const [url, setUrl] = useState(store.singleArtist.img_url)
+    
+    useEffect(()=>{
+        actions.getSingleArtist(params.artist_id)
+    },[])
+    console.log(store.singleArtist.name)
 
-    function sendData(e){
-        e.preventDefault()
+    function sendData(){
         actions.createArtist(name, url)
     }
 
