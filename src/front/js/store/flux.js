@@ -85,15 +85,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: {
 						"Content-Type": "application/json",
 					  },
-					  body: JSON.stringify({ name, img_url: url })
+					  body: JSON.stringify({ name:name, img_url: url })
 					};
 				fetch(process.env.BACKEND_URL + "/api/album/" + id, requestOptions)
-				 
-				  .then((res) => res.json())
-				  .then((data) => {
-					// Puedes manejar la lógica después de actualizar el álbum aquí, si es necesario.
-				  })
-				  .catch((error) => console.error("Error:", error));
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.then(() => getActions().getAlbum())
+				.catch(error => console.log('error', error));
 			  },
 			getMessage: async () => {
 				try{

@@ -22,7 +22,7 @@ class Album(db.Model):
     __tablename__ = 'album'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
-    img_url = db.Column(db.String(120), nullable=False)
+    img_url = db.Column(db.String(200), nullable=False)
 
     def __repr__(self):
         return '<Album %r>' % self.name
