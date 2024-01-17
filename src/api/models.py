@@ -18,6 +18,7 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
     
+
 class Album(db.Model):
     __tablename__ = 'album'
     id = db.Column(db.Integer, primary_key=True)
@@ -26,6 +27,16 @@ class Album(db.Model):
 
     def __repr__(self):
         return '<Album %r>' % self.name
+
+class Artist(db.Model):
+    __tablename__ = 'artist'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    img_url = db.Column(db.String(120), nullable=False)
+
+    def __repr__(self):
+        return '<Artist %r>' % self.name
+
     
     def serialize(self):
         return {
@@ -33,4 +44,3 @@ class Album(db.Model):
             "name": self.name,
             "img_url": self.img_url
         }
-    

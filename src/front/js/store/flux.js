@@ -14,8 +14,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
+
 			album: [],
-			singleAlbum: []
+			singleAlbum: [],
+			artist: [],
+			singleArtist: []
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -23,8 +27,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+
 			createAlbum: (name, url) => {
-				const requestOptions = {
+        const requestOptions = {
 					method: 'POST',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(
@@ -35,36 +40,87 @@ const getState = ({ getStore, getActions, setStore }) => {
 					)
 				};
 				  
+
 				fetch(process.env.BACKEND_URL + "/api/album", requestOptions)
 				.then(response => response.text())
 				.then(result => console.log(result))
 				.then(() => getActions().getAlbum())
 				.catch(error => console.log('error', error));
 			},
+			createArtist: (name, url) => {
+        
+				const requestOptions = {
+					method: 'POST',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(
+						{
+							"name":name,
+							"img_url":url
+						}
+					)
+				};
+				fetch(process.env.BACKEND_URL + "/api/artist", requestOptions)
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.then(() => getActions().getArtist())
+				.catch(error => console.log('error', error));
+			},
 
 			getAlbum: () => {
-				var requestOptions = {
+	       var requestOptions = {
 					method: 'GET',
 					redirect: 'follow'
 				};
 				  
+
 				fetch(process.env.BACKEND_URL + "/api/album", requestOptions)
 				.then(response => response.json())
 				.then(data => setStore({ album: data }))
 				.catch(error => console.log('error', error));
 			},
+				
 
-			getSingleAlbum: (id) => {
-				var requestOptions = {
+			getArtist: () => {
+         var requestOptions = {
 					method: 'GET',
 					redirect: 'follow'
 				};
 				  
+
+				fetch(process.env.BACKEND_URL + "/api/artist", requestOptions)
+				.then(response => response.json())
+				.then(data => setStore({ album: data }))
+				.catch(error => console.log('error', error));
+			},
+			
+
+			getSingleAlbum: (id) => {
+        var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+				  
+
 				fetch(process.env.BACKEND_URL + "/api/album/" + id, requestOptions)
 				.then(response => response.json())
 				.then(data => setStore({ singleAlbum: data }))
 				.catch(error => console.log('error', error));
 			},
+			
+			getSingleArtist: (id) => {
+         var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+				  
+
+				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
+				.then(response => response.json())
+				.then(data => setStore({ singleArtist: data }))
+				.catch(error => console.log('error', error));
+			},
+				  
+				
 
 			deleteAlbum: (id) => {
 				var requestOptions = {
@@ -78,7 +134,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(() => getActions().getAlbum())
 				.catch(error => console.log('error', error));
 			},
-            updateAlbum:(id, name, url) => {
+       updateAlbum:(id, name, url) => {
 				var requestOptions = {
 					method: 'PUT',
 					redirect: 'follow',
@@ -93,6 +149,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(() => getActions().getAlbum())
 				.catch(error => console.log('error', error));
 			  },
+
+			
+
+			deleteArtist: (id) => {
+				var requestOptions = {
+					method: 'DELETE',
+					redirect: 'follow'
+				};
+				  
+				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.then(() => getActions().getArtist())
+				.catch(error => console.log('error', error));
+			},
+
+			updateArtist:(id, name, url) => {
+				var requestOptions = {
+					method: 'PUT',
+					redirect: 'follow',
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({
+						"name": name,
+						"img_url": url
+					})
+				};
+				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.then(() => getActions().getArtist())
+				.catch(error => console.log('error', error));
+			},
+
+
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
