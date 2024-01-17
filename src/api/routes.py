@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Artist, Album
+from api.models import db, User, Album, Artist
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -21,10 +21,15 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-
 @api.route('/album', methods=['GET'])
 def get_album():
     results = list(map(lambda item: item.serialize(), Album.query.all()))
+
+    return jsonify(results), 200
+
+@api.route('/artist', methods=['GET'])
+def get_artist():
+    results = list(map(lambda item: item.serialize(), Artist.query.all()))
 
     return jsonify(results), 200
 
@@ -33,6 +38,12 @@ def get_single_album(album_id):
     album = Album.query.filter_by(id=album_id).first()
     
     return jsonify(album.serialize()), 200
+
+@api.route('/artist/<int:artist_id>', methods=['GET'])
+def get_single_artist(artist_id):
+    artist = Artist.query.filter_by(id=artist_id).first()
+    
+    return jsonify(artist.serialize()), 200
 
 @api.route('/album', methods=['POST'])
 def create_album():
@@ -43,18 +54,9 @@ def create_album():
     response_body = {
         'msg': 'New album has been created.',
         "new_album": new_album.name
+    }
 
-@api.route('/artist', methods=['GET'])
-def get_artist():
-    results = list(map(lambda item: item.serialize(), Artist.query.all()))
-
-    return jsonify(results), 200
-
-@api.route('/artist/<int:artist_id>', methods=['GET'])
-def get_single_artist(artist_id):
-    artist = Artist.query.filter_by(id=artist_id).first()
-    
-    return jsonify(artist.serialize()), 200
+    return jsonify(response_body), 200
 
 @api.route('/artist', methods=['POST'])
 def create_artist():
@@ -69,7 +71,6 @@ def create_artist():
 
     return jsonify(response_body), 200
 
-
 @api.route('/album/<int:album_id>', methods=['DELETE'])
 def delete_album(album_id):
     deleted_album = Album.query.filter_by(id=album_id).first()
@@ -77,6 +78,9 @@ def delete_album(album_id):
     db.session.commit()
     response_body = {
         'msg': 'Album has been deleted.'
+    }
+
+    return jsonify(response_body), 200
 
 @api.route('/artist/<int:artist_id>', methods=['DELETE'])
 def delete_artist(artist_id):
@@ -118,4 +122,3 @@ def edit_artist(artist_id):
         "img_url": artist_to_update.img_url,
     }
     return jsonify(response_body), 200
-
