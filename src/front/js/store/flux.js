@@ -13,7 +13,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			album: [],
+			singleAlbum: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -21,6 +23,78 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			createAlbum: (name, url) => {
+				const requestOptions = {
+					method: 'POST',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(
+						{
+							"name":name,
+							"img_url":url
+						}
+					)
+				};
+				  
+				fetch(process.env.BACKEND_URL + "/api/album", requestOptions)
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.then(() => getActions().getAlbum())
+				.catch(error => console.log('error', error));
+			},
+
+			getAlbum: () => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+				  
+				fetch(process.env.BACKEND_URL + "/api/album", requestOptions)
+				.then(response => response.json())
+				.then(data => setStore({ album: data }))
+				.catch(error => console.log('error', error));
+			},
+
+			getSingleAlbum: (id) => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+				  
+				fetch(process.env.BACKEND_URL + "/api/album/" + id, requestOptions)
+				.then(response => response.json())
+				.then(data => setStore({ singleAlbum: data }))
+				.catch(error => console.log('error', error));
+			},
+
+			deleteAlbum: (id) => {
+				var requestOptions = {
+				method: 'DELETE',
+				redirect: 'follow'
+				};
+				  
+				fetch(process.env.BACKEND_URL + "/api/album/" + id, requestOptions)
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.then(() => getActions().getAlbum())
+				.catch(error => console.log('error', error));
+			},
+            updateAlbum:(id, name, url) => {
+				var requestOptions = {
+					method: 'PUT',
+					redirect: 'follow',
+					headers: {
+						"Content-Type": "application/json",
+					  },
+					  body: JSON.stringify({ name, img_url: url })
+					};
+				fetch(process.env.BACKEND_URL + "/api/album/" + id, requestOptions)
+				 
+				  .then((res) => res.json())
+				  .then((data) => {
+					// Puedes manejar la lógica después de actualizar el álbum aquí, si es necesario.
+				  })
+				  .catch((error) => console.error("Error:", error));
+			  },
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
