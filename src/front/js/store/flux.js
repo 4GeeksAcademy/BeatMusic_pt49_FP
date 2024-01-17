@@ -43,8 +43,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(() => getActions().getAlbum())
 					.catch(error => console.log('error', error));
 			},
-			createArtist: (name, url) => {
 
+			createArtist: (name, url) => {
 				const requestOptions = {
 					method: 'POST',
 					headers: { "Content-Type": "application/json" },
@@ -80,7 +80,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-
 				fetch(process.env.BACKEND_URL + "/api/artist", requestOptions)
 					.then(response => response.json())
 					.then(data => setStore({ artist: data }))
@@ -104,7 +103,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'GET',
 					redirect: 'follow'
 				};
-
 
 				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
 					.then(response => response.json())
@@ -141,11 +139,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				var requestOptions = {
 					method: 'PUT',
 					redirect: 'follow',
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ name: name, img_url: url })
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						"name": name,
+						"img_url": url
+					})
 				};
+
 				fetch(process.env.BACKEND_URL + "/api/album/" + id, requestOptions)
 					.then(response => response.text())
 					.then(result => console.log(result))
@@ -157,17 +157,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				var requestOptions = {
 					method: 'PUT',
 					redirect: 'follow',
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ name: name, img_url: url })
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						"name": name,
+						"img_url": url
+					})
 				};
+
 				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
 					.then(response => response.text())
 					.then(result => console.log(result))
 					.then(() => getActions().getArtist())
 					.catch(error => console.log('error', error));
 			},
+			
 			getMessage: async () => {
 				try {
 					// fetching data from the backend
