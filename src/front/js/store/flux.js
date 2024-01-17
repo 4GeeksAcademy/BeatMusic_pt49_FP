@@ -68,10 +68,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			deleteArtist: (id) => {
 				var requestOptions = {
-				method: 'DELETE',
-				redirect: 'follow'
+					method: 'DELETE',
+					redirect: 'follow'
 				};
 				  
+				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.then(() => getActions().getArtist())
+				.catch(error => console.log('error', error));
+			},
+
+			updateArtist:(id, name, url) => {
+				var requestOptions = {
+					method: 'PUT',
+					redirect: 'follow',
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({
+						"name": name,
+						"img_url": url
+					})
+				};
 				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
 				.then(response => response.text())
 				.then(result => console.log(result))
