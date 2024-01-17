@@ -10,6 +10,9 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { NewAlbum } from "./component/newAlbum";
+import { EditAlbum } from "./component/editAlbum";
+import { ListAlbum } from "./component/listAlbum";
 
 //create your first component
 const Layout = () => {
@@ -27,6 +30,9 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
+                        <Route element={<NewAlbum />} path="/admin/newalbum" />
+                        <Route element={<EditAlbum />} path="/admin/editalbum/:album_id" />
+                        <Route element={<ListAlbum />} path="/admin/listalbum" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
