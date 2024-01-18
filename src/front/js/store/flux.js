@@ -17,7 +17,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			album: [],
 			singleAlbum: [],
 			artist: [],
-			singleArtist: []
+			singleArtist: [],
+			song: [],
+			singleSong: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -86,6 +88,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			getSong: () => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/song", requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ song: data }))
+					.catch(error => console.log('error', error));
+			},
+
 			getSingleAlbum: (id) => {
 				var requestOptions = {
 					method: 'GET',
@@ -107,6 +121,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/artist/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => setStore({ singleArtist: data }))
+					.catch(error => console.log('error', error));
+			},
+
+			getSingleSong: (id) => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/song/" + id, requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ singleSong: data }))
 					.catch(error => console.log('error', error));
 			},
 
