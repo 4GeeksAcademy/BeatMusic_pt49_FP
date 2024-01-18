@@ -64,6 +64,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			createSong: (name, length) => {
+				const requestOptions = {
+					method: 'POST',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(
+						{
+							"name": name,
+							"length": length
+						}
+					)
+				};
+				fetch(process.env.BACKEND_URL + "/api/song", requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.then(() => getActions().getSong())
+					.catch(error => console.log('error', error));
+			},
+
 			getAlbum: () => {
 				var requestOptions = {
 					method: 'GET',
