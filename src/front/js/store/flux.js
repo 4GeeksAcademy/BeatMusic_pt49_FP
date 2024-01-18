@@ -161,6 +161,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(() => getActions().getArtist())
 					.catch(error => console.log('error', error));
 			},
+
+			deleteSong: (id) => {
+				var requestOptions = {
+					method: 'DELETE',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/song/" + id, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.then(() => getActions().getSong())
+					.catch(error => console.log('error', error));
+			},
+
 			updateAlbum: (id, name, url) => {
 				var requestOptions = {
 					method: 'PUT',
