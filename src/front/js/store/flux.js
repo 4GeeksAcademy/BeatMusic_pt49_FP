@@ -228,6 +228,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(() => getActions().getArtist())
 					.catch(error => console.log('error', error));
 			},
+
+			updateSong: (id, name, length) => {
+				var requestOptions = {
+					method: 'PUT',
+					redirect: 'follow',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						"name": name,
+						"length": length
+					})
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/song/" + id, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.then(() => getActions().getSong())
+					.catch(error => console.log('error', error));
+			},
 			
 			getMessage: async () => {
 				try {
