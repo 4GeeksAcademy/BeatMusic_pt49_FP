@@ -7,42 +7,42 @@ import PropTypes from "prop-types";
 export const EditSong = () => {
 	const { store, actions } = useContext(Context);
     const params = useParams();
-    const [name, setName] = useState(store.singleArtist.name)
-    const [url, setUrl] = useState(store.singleArtist.img_url)
+    const [name, setName] = useState(store.singleSong.name)
+    const [length, setLength] = useState(store.singleSong.length)
     const navigate = useNavigate();
     
     useEffect(()=>{
-        actions.getSingleArtist(params.artist_id)
+        actions.getSingleSong(params.song_id)
     },[])
 
     useEffect(() => {
-        if (store.singleArtist) {
-          setName(store.singleArtist.name);
-          setUrl(store.singleArtist.img_url);
+        if (store.singleSong) {
+          setName(store.singleSong.name);
+          setLength(store.singleSong.length);
         }
-      }, [store.singleArtist]);
+      }, [store.singleSong]);
 
     function sendData(){
-        if (name !== "" && url !== "") {
-            actions.updateArtist(params.artist_id, name, url)
-            navigate("/admin/listartist");
+        if (name !== "" && length !== "") {
+            actions.updateSong(params.song_id, name, length)
+            navigate("/admin/listsong");
         } else {
-            alert('Complete all fields. Artist has not been saved.');
+            alert('Complete all fields. Song has not been saved.');
         }
     }
 
 	return (
 		<div className="container mt-5">
-            <h1 className="text-center mt-3">Edit an Artist</h1>
+            <h1 className="text-center mt-3">Edit a Song</h1>
             <div className="col-md-6">
                 <form>
                     <div className="mb-3">
-                        <label htmlFor="nameInput" className="form-label">Artist Name</label>
+                        <label htmlFor="nameInput" className="form-label">Song Name</label>
                         <input value={name} onChange={(e)=>setName(e.target.value)} className="form-control" id="nameInput" aria-describedby="emailHelp" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="urlInput" className="form-label">Image URL</label>
-                        <input value={url} onChange={(e)=>setUrl(e.target.value)} className="form-control" id="urlInput" />
+                        <label htmlFor="lengthInput" className="form-label">Song Length</label>
+                        <input value={length} onChange={(e)=>setLength(e.target.value)} className="form-control" id="lengthInput" />
                     </div>
                     <button onClick={sendData} type="submit" className="btn btn-primary">Submit</button>
                 </form>
