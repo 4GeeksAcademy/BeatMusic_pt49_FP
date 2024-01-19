@@ -15,6 +15,10 @@ import { NewAlbum } from "./component/newAlbum";
 import { EditAlbum } from "./component/editAlbum";
 import { ListAlbum } from "./component/listAlbum";
 
+import { Signup } from "./pages/signup";
+import { Login } from "./pages/login";
+import { Private } from "./pages/private";
+
 import { NewArtist } from "./component/newArtist";
 import { EditArtist } from "./component/editArtist";
 import { ListArtist } from "./component/listArtist";
@@ -30,7 +34,7 @@ const Layout = () => {
     // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
-    if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+    if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
     return (
         <div>
@@ -49,6 +53,10 @@ const Layout = () => {
                         <Route element={<EditArtist />} path="/admin/editartist/:artist_id" />
                         <Route element={<ListArtist />} path="/admin/listartist" />
 
+                        <Route element={<Signup />} path="/signup" />
+                        <Route element={<Login />} path="/login" />
+                        <Route element={<Private />} path="/private" />
+                        
                         <Route element={<NewSong />} path="/admin/newsong" />
                         <Route element={<EditSong />} path="/admin/editsong/:song_id" />
                         <Route element={<ListSong />} path="/admin/listsong" />
