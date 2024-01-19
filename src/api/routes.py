@@ -165,6 +165,7 @@ def edit_artist(artist_id):
         "img_url": artist_to_update.img_url,
     }
     return jsonify(response_body), 200
+
 @api.route('/song/<int:song_id>', methods=['PUT'])
 def edit_song(song_id):
     song_to_update = Song.query.filter_by(id=song_id).first()
@@ -220,4 +221,5 @@ def login():
 
     access_token = create_access_token(identity=email )
     return jsonify(access_token=access_token)
+
 
