@@ -5,11 +5,20 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Album, Artist
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
 
 api = Blueprint('api', __name__)
+app = Flask(__name__)
 
+# Setup the Flask-JWT-Extended extension
+app.config["JWT_SECRET_KEY"] = "12345678"  # Change this!
+jwt = JWTManager(app)
 # Allow CORS requests to this API
 CORS(api)
+# Setup the Flask-JWT-Extended extension
 
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -122,3 +131,45 @@ def edit_artist(artist_id):
         "img_url": artist_to_update.img_url,
     }
     return jsonify(response_body), 200
+
+@api.route('/users', methods=['GET'])
+def get_users():
+    results = list(map(lambda user: user.serialize(), User.query.all()))
+
+    return jsonify(results), 200
+
+@api.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    results = User.query.filter_by(id=user_id).first()
+
+    return jsonify(results.serialize()), 200
+
+@api.route('/users', methods=['POST'])
+def create_user():
+    request_body = request.get_json(force=True)
+    user = User.query.filter_by(email=request_body["email"]).first()
+
+    if user == None:
+        new_user = User(email=request_body["email"], password=request_body["password"], is_active=True)
+        db.session.add(new_user)
+        db.session.commit()
+        response_body = {
+            'msg': 'Your user has been added.'
+        }
+        return jsonify(response_body), 201
+    else:
+        return jsonify({"msg":"The user already exists."})
+
+@api.route("/login", methods=["POST"])
+def login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    user = User.query.filter_by(email=email).first()
+
+    if user == None:
+        return jsonify({"msg":"Could not find email."}), 401
+    if email != user.email or password != user.password:
+        return jsonify({"msg": "Bad email or password"}), 401
+
+    access_token = create_access_token(identity=email )
+    return jsonify(access_token=access_token)
