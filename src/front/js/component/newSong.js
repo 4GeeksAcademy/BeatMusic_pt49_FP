@@ -9,12 +9,13 @@ export const NewSong = () => {
     const [length, setLength] = useState('')
     const navigate = useNavigate();
 
-    function sendData(){
-        if (name !== "" && length !== "") {
+    function sendData(e){
+        e.preventDefault();
+        if (store.auth == true) {
             actions.createSong(name, length);
             navigate("/admin/listsong");
         } else {
-            alert('Complete all fields. Song has not been saved.');
+            alert('you need to be loged in ');
         }
     }
 
@@ -22,7 +23,7 @@ export const NewSong = () => {
 		<div className="container mt-5">
             <h1 className="text-center mt-3">Create new Song</h1>
             <div className="col-md-6">
-                <form>
+                <form onSubmit={sendData}>
                     <div className="mb-3">
                         <label htmlFor="nameInput" className="form-label">Song Name</label>
                         <input value={name} onChange={(e)=>setName(e.target.value)} className="form-control" id="nameInput" aria-describedby="emailHelp" />
@@ -31,7 +32,7 @@ export const NewSong = () => {
                         <label htmlFor="lengthInput" className="form-label">Song Length</label>
                         <input value={length} onChange={(e)=>setLength(e.target.value)} className="form-control" id="lengthInput" />
                     </div>
-                    <button onClick={sendData} type="button" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
 		</div>

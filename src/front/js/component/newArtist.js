@@ -9,12 +9,13 @@ export const NewArtist = () => {
     const [url, setUrl] = useState('')
     const navigate = useNavigate();
 
-    function sendData(){
-        if (name !== "" && url !== "") {
+    function sendData(e){
+        e.preventDefault();
+        if (store.auth == true) {
             actions.createArtist(name, url);
             navigate("/admin/listartist");
         } else {
-            alert('Complete all fields. Artist has not been saved.');
+            alert('you need to be loged in ');
         }
     }
 
@@ -22,7 +23,7 @@ export const NewArtist = () => {
 		<div className="container mt-5">
             <h1 className="text-center mt-3">Create new Artist</h1>
             <div className="col-md-6">
-                <form>
+                <form onSubmit={sendData}>
                     <div className="mb-3">
                         <label htmlFor="nameInput" className="form-label">Artist Name</label>
                         <input value={name} onChange={(e)=>setName(e.target.value)} className="form-control" id="nameInput" aria-describedby="emailHelp" />
@@ -31,7 +32,7 @@ export const NewArtist = () => {
                         <label htmlFor="urlInput" className="form-label">Image URL</label>
                         <input value={url} onChange={(e)=>setUrl(e.target.value)} className="form-control" id="urlInput" />
                     </div>
-                    <button onClick={sendData} type="button" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
 		</div>

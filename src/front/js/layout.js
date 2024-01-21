@@ -18,6 +18,8 @@ import { ListAlbum } from "./component/listAlbum";
 import { Signup } from "./pages/signup";
 import { Login } from "./pages/login";
 import { Private } from "./pages/private";
+import { AdminLogin } from "./pages/adminLogin";
+import { AdminPrivate } from "./pages/adminPrivate";
 
 import { NewArtist } from "./component/newArtist";
 import { EditArtist } from "./component/editArtist";
@@ -56,7 +58,9 @@ const Layout = () => {
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Private />} path="/private" />
-                        
+                        <Route element={<AdminLogin />} path="/admin/login" />
+                        <Route element={<AdminPrivate />} path="/admin/private" />
+
                         <Route element={<NewSong />} path="/admin/newsong" />
                         <Route element={<EditSong />} path="/admin/editsong/:song_id" />
                         <Route element={<ListSong />} path="/admin/listsong" />
