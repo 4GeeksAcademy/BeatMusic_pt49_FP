@@ -15,7 +15,7 @@ export const AdminLogin = () => {
 
     return (
         <div className="container mt-5">
-            {store.auth == true ? <Navigate to="/admin/private" /> :
+            {store.authAdmin == true ? <Navigate to="/admin/private" /> :
                 <div className="col-md-6">
                     <p>Admin Login</p>
                     <form>

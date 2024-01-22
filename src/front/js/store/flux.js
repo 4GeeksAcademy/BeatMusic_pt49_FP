@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			auth: false,
+			authAdmin: false,
 			message: null,
 			demo: [
 				{
@@ -290,7 +291,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/adminlogin", requestOptions)
 					.then(response => {
 						if (response.status == 200) {
-							setStore({ auth: true });
+							setStore({ authAdmin: true });
 						}
 						return response.text()
 					})
@@ -325,6 +326,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				setStore({ auth: false });
 			},
+
+			adminLogout: () => {
+				const store = getStore();
+				setStore({ authAdmin: false });
+			},
+
 
 
 			getMessage: async () => {

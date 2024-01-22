@@ -8,6 +8,8 @@ export const ListSong = () => {
 
 	return (
 		<div className="container">
+			{store.authAdmin == false ? <Navigate to="/" /> :
+      <>
 			<div className="d-flex justify-content-end my-3">
 				<Link to="/admin/newsong">
 					<button className="btn btn-success">Add new song</button>
@@ -82,6 +84,8 @@ export const ListSong = () => {
 				})}
 			</ul>
 			<br></br>
+			</>
+}
 		</div>
 	);
 };

@@ -11,7 +11,7 @@ export const NewAlbum = () => {
 
     function sendData(e) {
         e.preventDefault();
-        if (store.auth == true) {
+        if (store.authAdmin == true) {
             actions.createAlbum(name, url);
             navigate(`/admin/listalbum`, { replace: true });
         } else {
@@ -22,6 +22,8 @@ export const NewAlbum = () => {
 
     return (
         <div className="container mt-5">
+            {store.authAdmin == false ? <Navigate to="/" /> :
+      <>
             <h1 className="text-center mt-3">Create new Album</h1>
             <div className="col-md-6">
                 <form onSubmit={sendData}>
@@ -36,6 +38,8 @@ export const NewAlbum = () => {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
+            </>
+}
         </div>
     );
 };
