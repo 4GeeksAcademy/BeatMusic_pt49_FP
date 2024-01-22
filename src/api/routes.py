@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Album, Artist, Song
+from api.models import db, User, Album, Artist, Song, FavoriteArtist
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -223,3 +223,15 @@ def login():
     return jsonify(access_token=access_token)
 
 
+@api.route('/users/<int:user_id>/favorites/artist/<int:artist_id>', methods=['POST'])
+def add_favorite_artist(user_id, artist_id):
+    user = User.query.filter_by(id=user_id).first()
+    artist = Artist.query.filter_by(id=artist_id).first()
+    new_favorite = FavoriteArtist(user=user, artist=artist)
+    db.session.add(new_favorite)
+    db.session.commit()
+    response_body = {
+        'msg': 'Favorite artist has been added.'
+    }
+
+    return jsonify(response_body), 201
