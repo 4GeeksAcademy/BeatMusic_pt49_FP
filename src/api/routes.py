@@ -243,3 +243,14 @@ def add_favorite_artist(user_id, artist_id):
     }
 
     return jsonify(response_body), 201
+
+@api.route('/users/<int:user_id>/favorites/artist/<int:artist_id>', methods=['DELETE'])
+def delete_favorite_artist(user_id, artist_id):
+    delete_favorite = FavoriteArtist.query.filter_by(user_id=user_id, artist_id=artist_id).first()
+    db.session.delete(delete_favorite)
+    db.session.commit()
+    response_body = {
+        'msg': 'Favorite artist has been deleted.'
+    }
+
+    return jsonify(response_body), 200
