@@ -25,15 +25,14 @@ export const Navbar = () => {
 					{store.auth == false ? null :
 						<button onClick={actions.logout} className="btn btn-danger">Log Out</button>
 					}
-					<Link to="/admin/listalbum">
-						<button className="btn btn-primary mx-1">Admin List Album</button>
-					</Link>
-					<Link to="/admin/listartist">
-						<button className="btn btn-primary mx-1">Admin List Artist</button>
-					</Link>
-					<Link to="/admin/listsong">
-						<button className="btn btn-primary mx-1">Admin List Song</button>
-					</Link>
+					{store.authAdmin == false ? null :
+						<button onClick={actions.adminLogout} className="btn btn-danger">Admin Log Out</button>
+					}
+					{store.authAdmin == false ? null :
+						<Link to="/admin/private">
+							<button className="btn btn-primary mx-1">Admin</button>
+						</Link>
+					}
 					<Link to="/demo">
 						<button className="btn btn-primary">Check the Context in action</button>
 					</Link>

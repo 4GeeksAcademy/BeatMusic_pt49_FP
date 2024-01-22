@@ -5,52 +5,57 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export const EditArtist = () => {
-	const { store, actions } = useContext(Context);
+    const { store, actions } = useContext(Context);
     const params = useParams();
     const [name, setName] = useState(store.singleArtist.name)
     const [url, setUrl] = useState(store.singleArtist.img_url)
     const navigate = useNavigate();
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         actions.getSingleArtist(params.artist_id)
-    },[])
+    }, [])
 
     useEffect(() => {
         if (store.singleArtist) {
-          setName(store.singleArtist.name);
-          setUrl(store.singleArtist.img_url);
+            setName(store.singleArtist.name);
+            setUrl(store.singleArtist.img_url);
         }
-      }, [store.singleArtist]);
+    }, [store.singleArtist]);
 
-    function sendData(){
-        if (name !== "" && url !== "") {
+    function sendData(e) {
+        e.preventDefault();
+        if (store.authAdmin == true) {
             actions.updateArtist(params.artist_id, name, url)
             navigate("/admin/listartist");
         } else {
-            alert('Complete all fields. Artist has not been saved.');
+            alert('you need to be loged in ');
         }
     }
 
-	return (
-		<div className="container mt-5">
-            <h1 className="text-center mt-3">Edit an Artist</h1>
-            <div className="col-md-6">
-                <form>
-                    <div className="mb-3">
-                        <label htmlFor="nameInput" className="form-label">Artist Name</label>
-                        <input value={name} onChange={(e)=>setName(e.target.value)} className="form-control" id="nameInput" aria-describedby="emailHelp" />
+    return (
+        <div className="container mt-5">
+            {store.authAdmin == false ? <Navigate to="/" /> :
+                <>
+                    <h1 className="text-center mt-3">Edit an Artist</h1>
+                    <div className="col-md-6">
+                        <form onSubmit={sendData}>
+                            <div className="mb-3">
+                                <label htmlFor="nameInput" className="form-label">Artist Name</label>
+                                <input value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="nameInput" aria-describedby="emailHelp" required />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="urlInput" className="form-label">Image URL</label>
+                                <input value={url} onChange={(e) => setUrl(e.target.value)} className="form-control" id="urlInput" required />
+                            </div>
+                            <button type="submit" className="btn btn-primary">Submit</button>
+                        </form>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="urlInput" className="form-label">Image URL</label>
-                        <input value={url} onChange={(e)=>setUrl(e.target.value)} className="form-control" id="urlInput" />
-                    </div>
-                    <button onClick={sendData} type="submit" className="btn btn-primary">Submit</button>
-                </form>
-            </div>
-		</div>
-	);
+                </>
+            }
+        </div>
+    );
 };
 
 EditArtist.propTypes = {
-	match: PropTypes.object
+    match: PropTypes.object
 };

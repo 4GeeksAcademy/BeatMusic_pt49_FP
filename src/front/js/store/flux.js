@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			auth: false,
+			authAdmin: false,
 			message: null,
 			demo: [
 				{
@@ -230,7 +231,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
-			
+
 			updateSong: (id, name, length) => {
 				var requestOptions = {
 					method: 'PUT',
@@ -248,7 +249,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(() => getActions().getSong())
 					.catch(error => console.log('error', error));
 			},
-			
+
 			login: (email, password) => {
 				const requestOptions = {
 					method: 'POST',
@@ -262,11 +263,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					),
 
 				};
-
 				fetch(process.env.BACKEND_URL + "/api/login", requestOptions)
 					.then(response => {
 						if (response.status == 200) {
 							setStore({ auth: true });
+						}
+						return response.text()
+					})
+					.then(result => console.log(result))
+					.catch(error => console.log('error', error));
+			},
+
+			adminLogin: (email, password) => {
+				const requestOptions = {
+					method: 'POST',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(
+						{
+							"email": email,
+							"password": password,
+
+						}
+					),
+
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/adminlogin", requestOptions)
+					.then(response => {
+						if (response.status == 200) {
+							setStore({ authAdmin: true });
 						}
 						return response.text()
 					})
@@ -302,7 +327,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ auth: false });
 			},
 
-			
+			adminLogout: () => {
+				const store = getStore();
+				setStore({ authAdmin: false });
+			},
+
+
+
 			getMessage: async () => {
 				try {
 					// fetching data from the backend
