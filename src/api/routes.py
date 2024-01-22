@@ -222,6 +222,14 @@ def login():
     access_token = create_access_token(identity=email )
     return jsonify(access_token=access_token)
 
+@api.route('/users/<int:user_id>/favorites/artist', methods=['GET'])
+def get_user_favorite_artist(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    response_body = {
+        "favorite_artist": [item.serialize() for item in user.favorite_artist]
+    }
+
+    return jsonify(response_body), 200
 
 @api.route('/users/<int:user_id>/favorites/artist/<int:artist_id>', methods=['POST'])
 def add_favorite_artist(user_id, artist_id):
