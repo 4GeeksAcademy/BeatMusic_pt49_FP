@@ -80,5 +80,6 @@ class FavoriteArtist(db.Model):
 
     def serialize(self):
         return {
+            "artist_id": self.artist.id,
             "artist": self.artist.name
         }  
