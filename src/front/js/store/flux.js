@@ -219,6 +219,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/artist/" + artistId, requestOptions)
 					.then(response => response.text())
 					.then(result => console.log(result))
+					.then(() => getActions().getFavoriteArtists(store.userId))
 					.catch(error => console.log('error', error));
 			},
 
