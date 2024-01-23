@@ -17,11 +17,12 @@ export const Artists = () => {
 								<div className="col-2 d-flex align-items-center justify-content-center">
 									<img src={item.img_url} className="img-thumbnail rounded-circle" />
 								</div>
-                                <div className="col-8">
+                                <div className="col-6">
 									<p className="fs-5 fw-bold">{item.name}</p>
 								</div>
-								<div className="col-2 d-flex align-items-center justify-content-evenly">
+								<div className="col-4 d-flex align-items-center justify-content-evenly">
                                     <button onClick={()=> {actions.addFavoriteArtist(item.id)}} className="btn btn-success">Add to Favorites</button>
+									<button onClick={()=> {actions.deleteFavoriteArtist(item.id)}} className="btn btn-danger">Delete from Favorites</button>
 								</div>
 							</div>
 						</li>
