@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link, useParams, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export const Private = () => {
     const { store, actions } = useContext(Context);
+    const params = useParams();
+    const navigate = useNavigate();
 
     return (
         <div className="text-center mt-5">
@@ -17,4 +20,8 @@ export const Private = () => {
             }
         </div>
     );
+};
+
+Private.propTypes = {
+	match: PropTypes.object
 };
