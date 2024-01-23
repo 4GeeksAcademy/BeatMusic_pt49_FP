@@ -21,7 +21,7 @@ export const Artists = () => {
 									<p className="fs-5 fw-bold">{item.name}</p>
 								</div>
 								<div className="col-2 d-flex align-items-center justify-content-evenly">
-                                    <button className="btn btn-success">Add to Favorites</button>
+                                    <button onClick={()=> {actions.addFavoriteArtist(item.id)}} className="btn btn-success">Add to Favorites</button>
 								</div>
 							</div>
 						</li>
