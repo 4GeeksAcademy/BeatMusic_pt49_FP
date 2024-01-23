@@ -85,6 +85,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			addFavoriteArtist: (artistId) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'POST',
+					body: "",
+					redirect: 'follow'
+				};
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/artist/" + artistId, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.catch(error => console.log('error', error));
+			},
+
 			getAlbum: () => {
 				var requestOptions = {
 					method: 'GET',
