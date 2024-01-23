@@ -208,6 +208,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			deleteFavoriteArtist: (artistId) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'DELETE',
+					body: "",
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/artist/" + artistId, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.catch(error => console.log('error', error));
+			},
+
 			deleteSong: (id) => {
 				var requestOptions = {
 					method: 'DELETE',
