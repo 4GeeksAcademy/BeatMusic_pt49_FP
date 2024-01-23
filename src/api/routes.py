@@ -225,9 +225,8 @@ def login():
 @api.route('/users/<int:user_id>/favorites/artist', methods=['GET'])
 def get_user_favorite_artist(user_id):
     user = User.query.filter_by(id=user_id).first()
-    response_body = {
-        "favorite_artist": [item.serialize() for item in user.favorite_artist]
-    }
+    response_body = [item.serialize() for item in user.favorite_artist]
+    
 
     return jsonify(response_body), 200
 
