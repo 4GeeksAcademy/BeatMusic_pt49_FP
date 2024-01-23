@@ -219,8 +219,8 @@ def login():
     if email != user.email or password != user.password:
         return jsonify({"msg": "Bad email or password"}), 401
 
-    access_token = create_access_token(identity=email )
-    return jsonify(access_token=access_token)
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token, id=user.id)
 
 @api.route('/users/<int:user_id>/favorites/artist', methods=['GET'])
 def get_user_favorite_artist(user_id):
