@@ -9,8 +9,8 @@ export const Private = () => {
     const params = useParams();
     const navigate = useNavigate();
     //burnt IDs for burnt friends, friends API not working yet
-    const user1Id = 3;
-    const user2Id = 4;
+    const user1Id = 2;
+    const user2Id = 3;
 
     useEffect(()=>{
         actions.getFavoriteArtists(params.user_id)
