@@ -8,10 +8,18 @@ export const Private = () => {
     const { store, actions } = useContext(Context);
     const params = useParams();
     const navigate = useNavigate();
+    const user1Id = 3;
+    const user2Id = 4;
 
     useEffect(()=>{
         actions.getFavoriteArtists(params.user_id)
     },[])
+
+    useEffect(() => {
+        if (store.favoriteArtists) {
+            actions.getFavoriteArtists(params.user_id);
+        }
+      }, [store.favoriteArtists]);
 
     return (
         <div className="text-center mt-5">
@@ -22,6 +30,28 @@ export const Private = () => {
                     <div className="row">
                         <div className="col-3 border border-primary rounded">
                             <h2>Friends</h2>
+                            <ul className="list-group">
+                                <li key={user1Id} className="list-group-item">
+                                    <div className="row">
+                                        <div className="col-10">
+                                            <p className="fs-5 fw-bold">Miguel</p>
+                                        </div>
+                                        <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                            <button onClick={()=>{navigate("/private/" + user1Id)}} className="btn btn-primary mx-1">See Profile</button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li key={user2Id} className="list-group-item">
+                                    <div className="row">
+                                        <div className="col-10">
+                                            <p className="fs-5 fw-bold">Diego</p>
+                                        </div>
+                                        <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                            <button onClick={()=>{navigate("/private/" + user2Id)}} className="btn btn-primary mx-1">See Profile</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
