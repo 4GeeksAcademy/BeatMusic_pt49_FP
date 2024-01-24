@@ -8,6 +8,7 @@ export const Private = () => {
     const { store, actions } = useContext(Context);
     const params = useParams();
     const navigate = useNavigate();
+    //burnt IDs for burnt friends, friends API not working yet
     const user1Id = 3;
     const user2Id = 4;
 
@@ -30,28 +31,30 @@ export const Private = () => {
                     <div className="row">
                         <div className="col-3 border border-primary rounded">
                             <h2>Friends</h2>
-                            <ul className="list-group">
-                                <li key={user1Id} className="list-group-item">
-                                    <div className="row">
-                                        <div className="col-10">
-                                            <p className="fs-5 fw-bold">Miguel</p>
+                            {store.userId !== params.user_id ? <p className="fs-5 fw-bold">Friends list</p> :
+                                <ul className="list-group">
+                                    <li key={user1Id} className="list-group-item">
+                                        <div className="row">
+                                            <div className="col-10">
+                                                <p className="fs-5 fw-bold">Miguel</p>
+                                            </div>
+                                            <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                                <button onClick={()=>{navigate("/private/" + user1Id)}} className="btn btn-primary mx-1">See Profile</button>
+                                            </div>
                                         </div>
-                                        <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                            <button onClick={()=>{navigate("/private/" + user1Id)}} className="btn btn-primary mx-1">See Profile</button>
+                                    </li>
+                                    <li key={user2Id} className="list-group-item">
+                                        <div className="row">
+                                            <div className="col-10">
+                                                <p className="fs-5 fw-bold">Diego</p>
+                                            </div>
+                                            <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                                <button onClick={()=>{navigate("/private/" + user2Id)}} className="btn btn-primary mx-1">See Profile</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li key={user2Id} className="list-group-item">
-                                    <div className="row">
-                                        <div className="col-10">
-                                            <p className="fs-5 fw-bold">Diego</p>
-                                        </div>
-                                        <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                            <button onClick={()=>{navigate("/private/" + user2Id)}} className="btn btn-primary mx-1">See Profile</button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            }
                         </div>
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
