@@ -30,6 +30,7 @@ import { EditSong } from "./component/editSong";
 import { ListSong } from "./component/listSong";
 
 import { Artists } from "./component/artists";
+import { Albums } from "./component/albums";
 
 
 //create your first component
@@ -68,6 +69,7 @@ const Layout = () => {
                         <Route element={<ListSong />} path="/admin/listsong" />
 
                         <Route element={<Artists />} path="/artists" />
+                        <Route element={<Albums />} path="/albums" />
 
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
