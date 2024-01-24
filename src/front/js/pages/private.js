@@ -31,7 +31,7 @@ export const Private = () => {
                     <div className="row">
                         <div className="col-3 border border-primary rounded">
                             <h2>Friends</h2>
-                            {store.userId !== params.user_id ? <p className="fs-5 fw-bold">Friends list</p> :
+
                                 <ul className="list-group">
                                     <li key={user1Id} className="list-group-item">
                                         <div className="row">
@@ -54,7 +54,7 @@ export const Private = () => {
                                         </div>
                                     </li>
                                 </ul>
-                            }
+
                         </div>
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
