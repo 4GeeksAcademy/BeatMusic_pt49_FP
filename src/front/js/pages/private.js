@@ -13,7 +13,8 @@ export const Private = () => {
     const user2Id = 3;
 
     useEffect(()=>{
-        actions.getFavoriteArtists(params.user_id)
+        actions.getFavoriteArtists(params.user_id),
+        actions.getFavoriteAlbums(params.user_id)
     },[])
 
     useEffect(() => {
@@ -21,6 +22,12 @@ export const Private = () => {
             actions.getFavoriteArtists(params.user_id);
         }
       }, [store.favoriteArtists]);
+    
+    useEffect(() => {
+        if (store.favoriteAlbums) {
+            actions.getFavoriteAlbums(params.user_id);
+        }
+    }, [store.favoriteAlbums]);
 
     return (
         <div className="text-center mt-5">
@@ -78,15 +85,15 @@ export const Private = () => {
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Albums</h2>
                             <ul className="list-group">
-                                {store.favoriteArtists.map((item) => {
+                                {store.favoriteAlbums.map((item) => {
                                     return (
-                                        <li key={item.artist_id} className="list-group-item">
+                                        <li key={item.album_id} className="list-group-item">
                                             <div className="row">
                                                 <div className="col-10">
-                                                    <p className="fs-5 fw-bold">{item.artist}</p>
+                                                    <p className="fs-5 fw-bold">{item.album}</p>
                                                 </div>
                                                 <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                    <button onClick={()=> {actions.deleteFavoriteArtist(item.artist_id)}} className="btn btn-danger">Delete from Favorites</button>
+                                                    <button onClick={()=> {actions.deleteFavoriteAlbum(item.album_id)}} className="btn btn-danger">Delete from Favorites</button>
                                                 </div>
                                             </div>
                                         </li>
