@@ -15,7 +15,7 @@ export const Login = () => {
 
 	return (
 		<div className="container mt-5">
-            {store.auth == true ? <Navigate to={"/Private/" + store.userId} /> : 
+            {store.auth == true ? <Navigate to={"/private/" + store.userId} /> : 
                 <div className="col-md-6">
                     <form>
                         <div className="mb-3">
