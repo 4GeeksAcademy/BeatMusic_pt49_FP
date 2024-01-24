@@ -12,11 +12,6 @@ export const Private = () => {
     const user1Id = 2;
     const user2Id = 3;
 
-    useEffect(()=>{
-        actions.getFavoriteArtists(params.user_id),
-        actions.getFavoriteAlbums(params.user_id)
-    },[])
-
     useEffect(() => {
         if (store.favoriteArtists) {
             actions.getFavoriteArtists(params.user_id);
