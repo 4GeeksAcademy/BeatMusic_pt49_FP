@@ -23,6 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			song: [],
 			singleSong: [],
 			favoriteArtists: [],
+			favoriteAlbums: [],
 			userId: 0
 		},
 		actions: {
@@ -100,6 +101,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			addFavoriteAlbum: (albumId) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'POST',
+					body: "",
+					redirect: 'follow'
+				};
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/album/" + albumId, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.then(() => getActions().getFavoriteAlbums(store.userId))
+					.catch(error => console.log('error', error));
+			},
+
 			getAlbum: () => {
 				var requestOptions = {
 					method: 'GET',
@@ -133,6 +148,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/users/" + id + "/favorites/artist", requestOptions)
 					.then(response => response.json())
 					.then(data => setStore({ favoriteArtists: data }))
+					.catch(error => console.log('error', error));
+			},
+
+			getFavoriteAlbums: (id) => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + id + "/favorites/album", requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ favoriteAlbums: data }))
 					.catch(error => console.log('error', error));
 			},
 
@@ -222,6 +249,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.text())
 					.then(result => console.log(result))
 					.then(() => getActions().getFavoriteArtists(store.userId))
+					.catch(error => console.log('error', error));
+			},
+
+			deleteFavoriteAlbum: (albumId) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'DELETE',
+					body: "",
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/artist/" + albumId, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.then(() => getActions().getFavoriteAlbums(store.userId))
 					.catch(error => console.log('error', error));
 			},
 
