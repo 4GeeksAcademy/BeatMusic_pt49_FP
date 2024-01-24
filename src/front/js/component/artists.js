@@ -6,6 +6,17 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 export const Artists = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
+	const favorites = store.favoriteArtists.map(item => item.artist)
+
+	useEffect(()=>{
+        actions.getFavoriteArtists(store.userId)
+    },[])
+
+	useEffect(() => {
+        if (store.favoriteArtists) {
+            actions.getFavoriteArtists(store.userId);
+        }
+      }, [store.favoriteArtists]);
 
 	return (
 		<div className="container">
@@ -23,8 +34,12 @@ export const Artists = () => {
 										<p className="fs-5 fw-bold">{item.name}</p>
 									</div>
 									<div className="col-4 d-flex align-items-center justify-content-evenly">
-										<button onClick={()=> {actions.addFavoriteArtist(item.id)}} className="btn btn-success">Add to Favorites</button>
-										<button onClick={()=> {actions.deleteFavoriteArtist(item.id)}} className="btn btn-danger">Delete from Favorites</button>
+										{favorites.includes(item.name) ? null :
+											<button onClick={()=> {actions.addFavoriteArtist(item.id)}} className="btn btn-success">Add to Favorites</button>
+										}
+										{favorites.includes(item.name) ?
+											<button onClick={()=> {actions.deleteFavoriteArtist(item.id)}} className="btn btn-danger">Delete from Favorites</button>
+										: null }
 									</div>
 								</div>
 							</li>
