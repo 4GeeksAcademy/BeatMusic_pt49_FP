@@ -14,7 +14,6 @@ def setup_admin(app):
     admin.add_view(ModelView(Artist, db.session))
     admin.add_view(ModelView(Album, db.session))
     admin.add_view(ModelView(Song, db.session))
-    admin.add_view(ModelView(FavoriteArtist, db.session))
 
     # You can duplicate that line to add mew models
     # admin.add_view(ModelView(YourModelName, db.session))
