@@ -13,6 +13,11 @@ export const Navbar = () => {
 				</Link>
 				<div className="ml-auto">
 					{store.auth == false ? null :
+						<Link to={"/private/" + store.userId}>
+							<button className="btn btn-primary mx-1">Wall</button>
+						</Link>
+					}
+					{store.auth == false ? null :
 						<Link to="/artists">
 							<button className="btn btn-primary mx-1">Artist List</button>
 						</Link>
