@@ -8,6 +8,7 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     favorite_artist = db.relationship('FavoriteArtist', lazy=True)
+    favorite_album = db.relationship('FavoriteAlbum', lazy=True)
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -92,10 +93,27 @@ class FavoriteArtist(db.Model):
     artist = db.relationship('Artist')
 
     def __repr__(self):
-        return '<Song %r>' % self.artist_id
+        return '<FavoriteArtist %r>' % self.artist_id
 
     def serialize(self):
         return {
             "artist_id": self.artist.id,
             "artist": self.artist.name
-        }  
+        }
+    
+class FavoriteAlbum(db.Model):
+    __tablename__ = 'favorite_album'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', back_populates='favorite_album')
+    album_id = db.Column(db.Integer, db.ForeignKey('album.id'), nullable=False)
+    album = db.relationship('Album')
+
+    def __repr__(self):
+        return '<FavoriteAlbum %r>' % self.album_id
+
+    def serialize(self):
+        return {
+            "album_id": self.album.id,
+            "album": self.album.name
+        } 
