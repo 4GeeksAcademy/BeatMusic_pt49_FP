@@ -260,7 +260,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/artist/" + albumId, requestOptions)
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/album/" + albumId, requestOptions)
 					.then(response => response.text())
 					.then(result => console.log(result))
 					.then(() => getActions().getFavoriteAlbums(store.userId))
