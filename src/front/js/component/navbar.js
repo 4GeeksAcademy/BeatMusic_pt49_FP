@@ -12,6 +12,16 @@ export const Navbar = () => {
 					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link>
 				<div className="ml-auto">
+					{store.auth == false ? null :
+						<Link to={"/private/" + store.userId}>
+							<button className="btn btn-primary mx-1">Wall</button>
+						</Link>
+					}
+					{store.auth == false ? null :
+						<Link to="/artists">
+							<button className="btn btn-primary mx-1">Artist List</button>
+						</Link>
+					}
 					{store.auth == true ? null :
 						<Link to="/signup">
 							<button className="btn btn-success">Sign Up</button>
