@@ -292,6 +292,19 @@ def add_favorite_album(user_id, album_id):
 
     return jsonify(response_body), 201
 
+@api.route('/users/<int:user_id>/favorites/song/<int:song_id>', methods=['POST'])
+def add_favorite_song(user_id, song_id):
+    user = User.query.filter_by(id=user_id).first()
+    song = Song.query.filter_by(id=song_id).first()
+    new_favorite = FavoriteSong(user=user, song=song)
+    db.session.add(new_favorite)
+    db.session.commit()
+    response_body = {
+        'msg': 'Favorite song has been added.'
+    }
+
+    return jsonify(response_body), 201
+
 @api.route('/users/<int:user_id>/favorites/artist/<int:artist_id>', methods=['DELETE'])
 def delete_favorite_artist(user_id, artist_id):
     delete_favorite = FavoriteArtist.query.filter_by(user_id=user_id, artist_id=artist_id).first()
