@@ -61,7 +61,7 @@ export const Private = () => {
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
                             <ul className="list-group">
-                                {store.favoriteArtists.map((item) => {
+                                {store.favoriteArtists.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteArtists.map((item) => {
                                     return (
                                         <li key={item.artist_id} className="list-group-item">
                                             <div className="row">
@@ -80,7 +80,7 @@ export const Private = () => {
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Albums</h2>
                             <ul className="list-group">
-                                {store.favoriteAlbums.map((item) => {
+                                {store.favoriteAlbums.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteAlbums.map((item) => {
                                     return (
                                         <li key={item.album_id} className="list-group-item">
                                             <div className="row">
