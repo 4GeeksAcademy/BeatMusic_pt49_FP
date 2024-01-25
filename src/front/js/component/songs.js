@@ -6,24 +6,24 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 export const Songs = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
-	const favorites = store.favoriteAlbums.map(item => item.album)
+	const favorites = store.favoriteSongs.map(item => item.song)
 
 	useEffect(()=>{
-        actions.getFavoriteAlbums(store.userId)
+        actions.getFavoriteSongs(store.userId)
     },[])
 
 	useEffect(() => {
-        if (store.favoriteAlbums) {
-            actions.getFavoriteAlbums(store.userId);
+        if (store.favoriteSongs) {
+            actions.getFavoriteSongs(store.userId);
         }
-      }, [store.favoriteAlbums]);
+      }, [store.favoriteSongs]);
 
 	return (
 		<div className="container">
-			<h1 className="text-center my-3">Albums</h1>
+			<h1 className="text-center my-3">Songs</h1>
 			{store.auth == false ? <Navigate to="/" /> :
 				<ul className="list-group">
-					{store.album.map((item) => {
+					{store.song.map((item) => {
 						return (
 							<li key={item.id} className="list-group-item">
 								<div className="row">
@@ -35,10 +35,10 @@ export const Songs = () => {
 									</div>
 									<div className="col-4 d-flex align-items-center justify-content-evenly">
 										{favorites.includes(item.name) ? null :
-											<button onClick={()=> {actions.addFavoriteAlbum(item.id)}} className="btn btn-success">Add to Favorites</button>
+											<button onClick={()=> {actions.addFavoriteSong(item.id)}} className="btn btn-success">Add to Favorites</button>
 										}
 										{favorites.includes(item.name) ?
-											<button onClick={()=> {actions.deleteFavoriteAlbum(item.id)}} className="btn btn-danger">Delete from Favorites</button>
+											<button onClick={()=> {actions.deleteFavoriteSong(item.id)}} className="btn btn-danger">Delete from Favorites</button>
 										: null }
 									</div>
 								</div>
