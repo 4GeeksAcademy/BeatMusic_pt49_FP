@@ -24,6 +24,12 @@ export const Private = () => {
         }
     }, [store.favoriteAlbums]);
 
+    useEffect(() => {
+        if (store.favoriteSongs) {
+            actions.getFavoriteSongs(params.user_id);
+        }
+    }, [store.favoriteSongs]);
+
     return (
         <div className="text-center mt-5">
             {store.auth == false ? <Navigate to="/" /> :
@@ -98,6 +104,22 @@ export const Private = () => {
                         </div>
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Songs</h2>
+                            <ul className="list-group">
+                                {store.favoriteSongs.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteSongs.map((item) => {
+                                    return (
+                                        <li key={item.song_id} className="list-group-item">
+                                            <div className="row">
+                                                <div className="col-10">
+                                                    <p className="fs-5 fw-bold">{item.song}</p>
+                                                </div>
+                                                <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                                    <button onClick={()=> {actions.deleteFavoriteSong(item.song_id)}} className="btn btn-danger">Delete from Favorites</button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
                         </div>
                     </div>
                 </>
