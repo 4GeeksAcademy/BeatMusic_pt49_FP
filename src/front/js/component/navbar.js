@@ -27,6 +27,11 @@ export const Navbar = () => {
 							<button className="btn btn-primary mx-1">Album List</button>
 						</Link>
 					}
+					{store.auth == false ? null :
+						<Link to="/songs">
+							<button className="btn btn-primary mx-1">Song List</button>
+						</Link>
+					}
 					{store.auth == true ? null :
 						<Link to="/signup">
 							<button className="btn btn-success">Sign Up</button>
