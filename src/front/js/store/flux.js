@@ -23,8 +23,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			song: [],
 			singleSong: [],
 			favoriteArtists: [],
+			favoriteUserArtists: [],
 			favoriteAlbums: [],
+			favoriteUserAlbums: [],
 			favoriteSongs: [],
+			favoriteUserSongs: [],
 			userId: 0
 		},
 		actions: {
