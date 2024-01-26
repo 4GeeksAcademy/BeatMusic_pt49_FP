@@ -169,6 +169,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			getFavoriteUserArtists: () => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/artist", requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ favoriteUserArtists: data }))
+					.catch(error => console.log('error', error));
+			},
+
 			getFavoriteAlbums: (id) => {
 				var requestOptions = {
 					method: 'GET',
@@ -378,6 +391,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => console.log(result))
 					.then(() => getActions().getSong())
 					.catch(error => console.log('error', error));
+			},
+
+			artistMatchPercentage: (user, friend) => {
+				const shorterArray = user.length <= friend.length ? user : friend
+				const longerArray = user.length <= friend.length ? friend : user
+				const matchingItems = shorterArray.filter(item => longerArray.includes(item))
+				const percentage = (matchingItems.length / ((longerArray.length + shorterArray.length) / 2)) * 100
+				return percentage.toFixed(0)
 			},
 
 			login: (email, password) => {
