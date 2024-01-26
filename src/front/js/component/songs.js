@@ -1,16 +1,11 @@
 import React, { useContext, useState, useEffect, } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export const Songs = () => {
 	const { store, actions } = useContext(Context);
-	const navigate = useNavigate();
 	const favorites = store.favoriteSongs.map(item => item.song)
-
-	useEffect(()=>{
-        actions.getFavoriteSongs(store.userId)
-    },[])
 
 	useEffect(() => {
         if (store.favoriteSongs) {
