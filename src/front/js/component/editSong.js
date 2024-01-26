@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Navigate, useParams, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export const EditSong = () => {
@@ -13,14 +13,9 @@ export const EditSong = () => {
 
     useEffect(() => {
         actions.getSingleSong(params.song_id)
-    }, [])
-
-    useEffect(() => {
-        if (store.singleSong) {
-            setName(store.singleSong.name);
-            setLength(store.singleSong.length);
-        }
-    }, [store.singleSong]);
+        setName(store.singleSong.name);
+        setLength(store.singleSong.length);
+    }, [store.singleSong])
 
     function sendData(e) {
         e.preventDefault();
