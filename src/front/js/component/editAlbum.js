@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export const EditAlbum = (props) => {
@@ -13,13 +13,8 @@ export const EditAlbum = (props) => {
 
   useEffect(() => {
     actions.getSingleAlbum(params.album_id);
-  }, []);
-
-  useEffect(() => {
-    if (store.singleAlbum) {
-      setName(store.singleAlbum.name);
-      setUrl(store.singleAlbum.img_url);
-    }
+    setName(store.singleAlbum.name);
+    setUrl(store.singleAlbum.img_url);
   }, [store.singleAlbum]);
 
   function sendData(e) {
