@@ -425,22 +425,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'POST',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-							"email": email,
-							"password": password
-						})
+						"email": email,
+						"password": password
+					})
 				};
-
+			
 				fetch(process.env.BACKEND_URL + "/api/users", requestOptions)
 					.then(response => {
-						if (response.status == 200) {
-							setStore({ auth: true });
+						if (response.status === 201) {
+							return response.json();
+						} else {
+							throw new Error('Signup failed');
 						}
-						return response.text()
 					})
-					.then(result => console.log(result))
-					.catch(error => console.log('error', error));
+					.then(data => { setStore({ auth: true, userId: data.id }) })
+					.catch(error => console.log('Error:', error));
 			},
-
+			
 			logout: () => {
 				const store = getStore();
 				setStore({ auth: false });
