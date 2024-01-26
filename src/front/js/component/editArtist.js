@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Navigate, useParams, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export const EditArtist = () => {
@@ -13,14 +13,9 @@ export const EditArtist = () => {
 
     useEffect(() => {
         actions.getSingleArtist(params.artist_id)
-    }, [])
-
-    useEffect(() => {
-        if (store.singleArtist) {
-            setName(store.singleArtist.name);
-            setUrl(store.singleArtist.img_url);
-        }
-    }, [store.singleArtist]);
+        setName(store.singleArtist.name);
+        setUrl(store.singleArtist.img_url);
+    }, [store.singleArtist])
 
     function sendData(e) {
         e.preventDefault();
