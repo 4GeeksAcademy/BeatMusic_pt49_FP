@@ -7,6 +7,9 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    favorite_artist = db.relationship('FavoriteArtist', lazy=True)
+    favorite_album = db.relationship('FavoriteAlbum', lazy=True)
+    favorite_song = db.relationship('FavoriteSong', lazy=True)
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -59,7 +62,6 @@ class Artist(db.Model):
     def __repr__(self):
         return '<Artist %r>' % self.name
 
-    
     def serialize(self):
         return {
             "id": self.id,
@@ -76,10 +78,60 @@ class Song(db.Model):
     def __repr__(self):
         return '<Song %r>' % self.name
 
-    
     def serialize(self):
         return {
             "id": self.id,
             "name": self.name,
             "length": self.length
-        }  
+        }
+    
+class FavoriteArtist(db.Model):
+    __tablename__ = 'favorite_artist'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', back_populates='favorite_artist')
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'), nullable=False)
+    artist = db.relationship('Artist')
+
+    def __repr__(self):
+        return '<FavoriteArtist %r>' % self.artist_id
+
+    def serialize(self):
+        return {
+            "artist_id": self.artist.id,
+            "artist": self.artist.name
+        }
+    
+class FavoriteAlbum(db.Model):
+    __tablename__ = 'favorite_album'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', back_populates='favorite_album')
+    album_id = db.Column(db.Integer, db.ForeignKey('album.id'), nullable=False)
+    album = db.relationship('Album')
+
+    def __repr__(self):
+        return '<FavoriteAlbum %r>' % self.album_id
+
+    def serialize(self):
+        return {
+            "album_id": self.album.id,
+            "album": self.album.name
+        }
+    
+class FavoriteSong(db.Model):
+    __tablename__ = 'favorite_song'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', back_populates='favorite_song')
+    song_id = db.Column(db.Integer, db.ForeignKey('song.id'), nullable=False)
+    song = db.relationship('Song')
+
+    def __repr__(self):
+        return '<FavoriteSong %r>' % self.song_id
+
+    def serialize(self):
+        return {
+            "song_id": self.song.id,
+            "song": self.song.name
+        } 

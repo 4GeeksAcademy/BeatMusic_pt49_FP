@@ -12,12 +12,32 @@ export const Navbar = () => {
 					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link>
 				<div className="ml-auto">
-					{store.auth == true ? null :
+					{store.auth == false ? null :
+						<Link to={"/private/" + store.userId}>
+							<button className="btn btn-primary mx-1">Wall</button>
+						</Link>
+					}
+					{store.auth == false ? null :
+						<Link to="/artists">
+							<button className="btn btn-primary mx-1">Artist List</button>
+						</Link>
+					}
+					{store.auth == false ? null :
+						<Link to="/albums">
+							<button className="btn btn-primary mx-1">Album List</button>
+						</Link>
+					}
+					{store.auth == false ? null :
+						<Link to="/songs">
+							<button className="btn btn-primary mx-1">Song List</button>
+						</Link>
+					}
+					{store.auth == true || store.authAdmin == true ? null :
 						<Link to="/signup">
 							<button className="btn btn-success">Sign Up</button>
 						</Link>
 					}
-					{store.auth == true ? null :
+					{store.auth == true || store.authAdmin == true ? null :
 						<Link to="/login">
 							<button className="btn btn-primary mx-2">Log In</button>
 						</Link>
