@@ -32,12 +32,12 @@ export const Navbar = () => {
 							<button className="btn btn-primary mx-1">Song List</button>
 						</Link>
 					}
-					{store.auth == true ? null :
+					{store.auth == true || store.authAdmin == true ? null :
 						<Link to="/signup">
 							<button className="btn btn-success">Sign Up</button>
 						</Link>
 					}
-					{store.auth == true ? null :
+					{store.auth == true || store.authAdmin == true ? null :
 						<Link to="/login">
 							<button className="btn btn-primary mx-2">Log In</button>
 						</Link>
