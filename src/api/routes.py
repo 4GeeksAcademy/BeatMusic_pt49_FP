@@ -207,9 +207,7 @@ def create_user():
         new_user = User(email=request_body["email"], password=request_body["password"], is_active=True)
         db.session.add(new_user)
         db.session.commit()
-        response_body = {
-            'msg': 'Your user has been added.'
-        }
+        response_body = new_user.serialize()
         return jsonify(response_body), 201
     else:
         return jsonify({"msg":"The user already exists."})
