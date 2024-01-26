@@ -8,6 +8,8 @@ export const Private = () => {
     const { store, actions } = useContext(Context);
     const params = useParams();
     const navigate = useNavigate();
+    const userArtists = store.favoriteArtists.map(item => item.artist)
+    const friendArtists = store.favoriteUserArtists.map(item => item.artist)
     //burnt IDs for burnt friends, friends API not working yet
     const user1Id = 2;
     const user2Id = 3;
@@ -17,6 +19,12 @@ export const Private = () => {
             actions.getFavoriteArtists(params.user_id);
         }
       }, [store.favoriteArtists]);
+
+    useEffect(() => {
+        if (store.favoriteUserArtists) {
+            actions.getFavoriteUserArtists();
+        }
+    }, [store.favoriteUserArtists]);
     
     useEffect(() => {
         if (store.favoriteAlbums) {
@@ -66,6 +74,9 @@ export const Private = () => {
                         </div>
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
+                            {store.userId === parseInt(params.user_id) ? null :
+                                <p>Match Percentage: {store.artistMatchPercentage(userArtists, friendArtists)}%</p>
+                            }
                             <ul className="list-group">
                                 {store.favoriteArtists.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteArtists.map((item) => {
                                     return (
