@@ -74,9 +74,11 @@ export const Private = () => {
                                                 <div className="col-10">
                                                     <p className="fs-5 fw-bold">{item.artist}</p>
                                                 </div>
-                                                <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                    <button onClick={()=> {actions.deleteFavoriteArtist(item.artist_id)}} className="btn btn-danger">Delete from Favorites</button>
-                                                </div>
+                                                {store.userId === parseInt(params.user_id) ?
+                                                    <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                                        <button onClick={()=> {actions.deleteFavoriteArtist(item.artist_id)}} className="btn btn-danger">Delete from Favorites</button>
+                                                    </div>
+                                                : null }
                                             </div>
                                         </li>
                                     );
@@ -93,9 +95,11 @@ export const Private = () => {
                                                 <div className="col-10">
                                                     <p className="fs-5 fw-bold">{item.album}</p>
                                                 </div>
-                                                <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                    <button onClick={()=> {actions.deleteFavoriteAlbum(item.album_id)}} className="btn btn-danger">Delete from Favorites</button>
-                                                </div>
+                                                {store.userId === parseInt(params.user_id) ?
+                                                    <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                                        <button onClick={()=> {actions.deleteFavoriteAlbum(item.album_id)}} className="btn btn-danger">Delete from Favorites</button>
+                                                    </div>
+                                                : null }
                                             </div>
                                         </li>
                                     );
@@ -112,9 +116,11 @@ export const Private = () => {
                                                 <div className="col-10">
                                                     <p className="fs-5 fw-bold">{item.song}</p>
                                                 </div>
-                                                <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                    <button onClick={()=> {actions.deleteFavoriteSong(item.song_id)}} className="btn btn-danger">Delete from Favorites</button>
-                                                </div>
+                                                {store.userId === parseInt(params.user_id) ?
+                                                    <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                                        <button onClick={()=> {actions.deleteFavoriteSong(item.song_id)}} className="btn btn-danger">Delete from Favorites</button>
+                                                    </div>
+                                                : null }
                                             </div>
                                         </li>
                                     );
