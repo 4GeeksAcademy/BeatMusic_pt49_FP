@@ -62,7 +62,7 @@ export const Private = () => {
             {store.auth == false ? <Navigate to="/" /> :
                 <>
                     <h1>Private</h1>
-                    <p>Welcome to your private area.</p>
+                    <p>Welcome {store.username} to your private area.</p>
                     {store.userId === parseInt(params.user_id) ? null :
                         <p>Total Match: {actions.totalMatch(artistMatch, albumMatch, songMatch)}%</p>
                     }
