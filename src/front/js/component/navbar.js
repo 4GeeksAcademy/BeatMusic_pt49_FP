@@ -76,8 +76,8 @@ export const Navbar = () => {
 							</button>
 							<ul className="dropdown-menu dropdown-menu-end">
 								<li>
-									<Link to="/artists">
-										<button className="dropdown-item">Edit Profile</button>
+									<Link to="/account">
+										<button className="dropdown-item">Account Settings</button>
 									</Link>
 								</li>
 								<li><hr class="dropdown-divider"/></li>
