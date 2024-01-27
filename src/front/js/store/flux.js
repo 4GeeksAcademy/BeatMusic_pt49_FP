@@ -219,6 +219,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			getFavoriteUserSongs: () => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/song", requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ favoriteUserSongs: data }))
+					.catch(error => console.log('error', error));
+			},
+
 			getSong: () => {
 				var requestOptions = {
 					method: 'GET',
