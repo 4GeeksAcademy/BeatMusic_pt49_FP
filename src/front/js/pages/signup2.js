@@ -21,15 +21,15 @@ export const Signup2 = () => {
         <div className="container mt-5">
             <h4 className="text-center">Choose your name and add your favorites. When you're done, press "Submit".</h4>
             <br></br>
-            <form className="row row-cols-lg-auto g-3 align-items-center">
+            <form onSubmit={sendData} className="row row-cols-lg-auto g-3 align-items-center">
                 <div className="col-12">
                     <label htmlFor="nameInput" className="form-label">Name:</label>
                 </div>
                 <div className="col-12">
-                    <input value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="nameInput" />
+                    <input value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="nameInput" required />
                 </div>
                 <div className="col-12">
-                    <button onClick={sendData} type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Submit</button>
                 </div>
             </form>
                 
