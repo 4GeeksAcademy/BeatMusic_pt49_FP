@@ -18,35 +18,44 @@ export const Navbar = () => {
 						</Link>
 					}
 					{store.auth == false ? null :
-						<Link to="/artists">
-							<button className="btn btn-primary mx-1">Artist List</button>
-						</Link>
-					}
-					{store.auth == false ? null :
-						<Link to="/albums">
-							<button className="btn btn-primary mx-1">Album List</button>
-						</Link>
-					}
-					{store.auth == false ? null :
-						<Link to="/songs">
-							<button className="btn btn-primary mx-1">Song List</button>
-						</Link>
+						<div className="btn-group mx-1">
+							<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Lists
+							</button>
+							<ul className="dropdown-menu dropdown-menu-end">
+								<li>
+									<Link to="/artists">
+										<button className="dropdown-item">Artists</button>
+									</Link>
+								</li>
+								<li>
+									<Link to="/albums">
+										<button className="dropdown-item">Albums</button>
+									</Link>
+								</li>
+								<li>
+									<Link to="/songs">
+										<button className="dropdown-item">Songs</button>
+									</Link>
+								</li>
+							</ul>
+						</div>
 					}
 					{store.auth == true || store.authAdmin == true ? null :
 						<Link to="/signup">
-							<button className="btn btn-success">Sign Up</button>
+							<button className="btn btn-success mx-1">Sign Up</button>
 						</Link>
 					}
 					{store.auth == true || store.authAdmin == true ? null :
 						<Link to="/login">
-							<button className="btn btn-primary mx-2">Log In</button>
+							<button className="btn btn-primary mx-1">Log In</button>
 						</Link>
 					}
 					{store.auth == false ? null :
-						<button onClick={actions.logout} className="btn btn-danger">Log Out</button>
+						<button onClick={actions.logout} className="btn btn-danger mx-1">Log Out</button>
 					}
 					{store.authAdmin == false ? null :
-						<button onClick={actions.adminLogout} className="btn btn-danger">Admin Log Out</button>
+						<button onClick={actions.adminLogout} className="btn btn-danger mx-1">Admin Log Out</button>
 					}
 					{store.authAdmin == false ? null :
 						<Link to="/admin/private">
