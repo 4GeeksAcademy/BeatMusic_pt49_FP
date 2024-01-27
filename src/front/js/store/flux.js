@@ -195,6 +195,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getFavoriteUserAlbums: () => {
+				const store = getStore();
 				var requestOptions = {
 					method: 'GET',
 					redirect: 'follow'
