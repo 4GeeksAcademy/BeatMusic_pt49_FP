@@ -8,8 +8,10 @@ export const Private = () => {
     const { store, actions } = useContext(Context);
     const params = useParams();
     const navigate = useNavigate();
-    const userArtists = store.favoriteArtists.map(item => item.artist)
-    const friendArtists = store.favoriteUserArtists.map(item => item.artist)
+    const userArtists = store.favoriteUserArtists.map(item => item.artist)
+    const friendArtists = store.favoriteArtists.map(item => item.artist)
+    const userAlbums = store.favoriteUserAlbums.map(item => item.artist)
+    const friendAlbums = store.favoriteAlbums.map(item => item.artist)
     //burnt IDs for burnt friends, friends API not working yet
     const user1Id = 2;
     const user2Id = 3;
@@ -31,6 +33,12 @@ export const Private = () => {
             actions.getFavoriteAlbums(params.user_id);
         }
     }, [store.favoriteAlbums]);
+
+    useEffect(() => {
+        if (store.favoriteUserAlbums) {
+            actions.getFavoriteUserAlbums();
+        }
+    }, [store.favoriteUserAlbums]);
 
     useEffect(() => {
         if (store.favoriteSongs) {
