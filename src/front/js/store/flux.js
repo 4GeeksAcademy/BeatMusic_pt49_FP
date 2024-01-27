@@ -427,6 +427,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return percentage.toFixed(0)
 			},
 
+			totalMatch: (artist, album, song) => {
+				const match = (artist * 0.7) + (album * 0.2) + (song * 0.1)
+				return match.toFixed(0)
+			},
+
 			login: (email, password) => {
 				const requestOptions = {
 					method: 'POST',
