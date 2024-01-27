@@ -17,7 +17,6 @@ export const Private = () => {
     const artistMatch = actions.matchPercentage(userArtists, friendArtists)
     const albumMatch = actions.matchPercentage(userAlbums, friendAlbums)
     const songMatch = actions.matchPercentage(userSongs, friendSongs)
-    const totalMatch = (artistMatch * 0.7) + (albumMatch * 0.2) + (songMatch * 0.1)
     //burnt IDs for burnt friends, friends API not working yet
     const user1Id = 2;
     const user2Id = 3;
@@ -65,7 +64,7 @@ export const Private = () => {
                     <h1>Private</h1>
                     <p>Welcome to your private area.</p>
                     {store.userId === parseInt(params.user_id) ? null :
-                        <p>Total Match: {totalMatch}%</p>
+                        <p>Total Match: {actions.totalMatch(artistMatch, albumMatch, songMatch)}%</p>
                     }
                     <div className="row">
                         <div className="col-3 border border-primary rounded">
