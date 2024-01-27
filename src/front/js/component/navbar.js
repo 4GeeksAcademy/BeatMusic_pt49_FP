@@ -51,16 +51,41 @@ export const Navbar = () => {
 							<button className="btn btn-primary mx-1">Log In</button>
 						</Link>
 					}
+					{store.authAdmin == false ? null :
+						<div className="btn-group mx-1">
+							<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Admin
+							</button>
+							<ul className="dropdown-menu dropdown-menu-end">
+								<li>
+									<Link to="/admin/private">
+										<button className="dropdown-item">Admin Lists</button>
+									</Link>
+								</li>
+								<li><hr class="dropdown-divider"/></li>
+								<li>
+									<button onClick={actions.adminLogout} className="btn btn-danger mx-3">Log Out</button>
+								</li>
+							</ul>
+						</div>
+					}
 					{store.auth == false ? null :
-						<button onClick={actions.logout} className="btn btn-danger mx-1">Log Out</button>
-					}
-					{store.authAdmin == false ? null :
-						<button onClick={actions.adminLogout} className="btn btn-danger mx-1">Admin Log Out</button>
-					}
-					{store.authAdmin == false ? null :
-						<Link to="/admin/private">
-							<button className="btn btn-primary mx-1">Admin</button>
-						</Link>
+						<div className="btn-group mx-1">
+							<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							{store.username}
+							</button>
+							<ul className="dropdown-menu dropdown-menu-end">
+								<li>
+									<Link to="/artists">
+										<button className="dropdown-item">Edit Profile</button>
+									</Link>
+								</li>
+								<li><hr class="dropdown-divider"/></li>
+								<li>
+									<button onClick={actions.logout} className="btn btn-danger mx-3">Log Out</button>
+								</li>
+							</ul>
+						</div>
 					}
 					<Link to="/demo">
 						<button className="btn btn-primary">Check the Context in action</button>
