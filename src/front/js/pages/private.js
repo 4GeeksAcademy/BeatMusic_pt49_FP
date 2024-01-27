@@ -10,10 +10,10 @@ export const Private = () => {
     const navigate = useNavigate();
     const userArtists = store.favoriteUserArtists.map(item => item.artist)
     const friendArtists = store.favoriteArtists.map(item => item.artist)
-    const userAlbums = store.favoriteUserAlbums.map(item => item.artist)
-    const friendAlbums = store.favoriteAlbums.map(item => item.artist)
-    const userSongs = store.favoriteUserSongs.map(item => item.artist)
-    const friendSongs = store.favoriteAlbums.map(item => item.artist)
+    const userAlbums = store.favoriteUserAlbums.map(item => item.album)
+    const friendAlbums = store.favoriteAlbums.map(item => item.album)
+    const userSongs = store.favoriteUserSongs.map(item => item.song)
+    const friendSongs = store.favoriteSongs.map(item => item.song)
     //burnt IDs for burnt friends, friends API not working yet
     const user1Id = 2;
     const user2Id = 3;
@@ -91,7 +91,7 @@ export const Private = () => {
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
                             {store.userId === parseInt(params.user_id) ? null :
-                                <p>Match Percentage: {actions.matchPercentage(userArtists, friendArtists)}%</p>
+                                <p>Match: {actions.matchPercentage(userArtists, friendArtists)}%</p>
                             }
                             <ul className="list-group">
                                 {store.favoriteArtists.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteArtists.map((item) => {
@@ -115,7 +115,7 @@ export const Private = () => {
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Albums</h2>
                             {store.userId === parseInt(params.user_id) ? null :
-                                <p>Match Percentage: {actions.matchPercentage(userAlbums, friendAlbums)}%</p>
+                                <p>Match: {actions.matchPercentage(userAlbums, friendAlbums)}%</p>
                             }
                             <ul className="list-group">
                                 {store.favoriteAlbums.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteAlbums.map((item) => {
@@ -138,6 +138,9 @@ export const Private = () => {
                         </div>
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Songs</h2>
+                            {store.userId === parseInt(params.user_id) ? null :
+                                <p>Match: {actions.matchPercentage(userSongs, friendSongs)}%</p>
+                            }
                             <ul className="list-group">
                                 {store.favoriteSongs.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteSongs.map((item) => {
                                     return (
