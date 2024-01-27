@@ -46,3 +46,5 @@ export const Artists = () => {
 		</div>
 	);
 };
+
+export default Artists;
