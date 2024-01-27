@@ -7,6 +7,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    name = db.Column(db.String(80), unique=False, nullable=True)
     favorite_artist = db.relationship('FavoriteArtist', lazy=True)
     favorite_album = db.relationship('FavoriteAlbum', lazy=True)
     favorite_song = db.relationship('FavoriteSong', lazy=True)
@@ -18,6 +19,7 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
+            "name": self.email,
             # do not serialize the password, its a security breach
         }
     
