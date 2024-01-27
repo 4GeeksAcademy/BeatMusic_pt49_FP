@@ -12,6 +12,8 @@ export const Private = () => {
     const friendArtists = store.favoriteArtists.map(item => item.artist)
     const userAlbums = store.favoriteUserAlbums.map(item => item.artist)
     const friendAlbums = store.favoriteAlbums.map(item => item.artist)
+    const userSongs = store.favoriteUserSongs.map(item => item.artist)
+    const friendSongs = store.favoriteAlbums.map(item => item.artist)
     //burnt IDs for burnt friends, friends API not working yet
     const user1Id = 2;
     const user2Id = 3;
@@ -45,6 +47,12 @@ export const Private = () => {
             actions.getFavoriteSongs(params.user_id);
         }
     }, [store.favoriteSongs]);
+
+    useEffect(() => {
+        if (store.favoriteUserSongs) {
+            actions.getFavoriteUserSongs();
+        }
+    }, [store.favoriteUserSongs]);
 
     return (
         <div className="text-center mt-5">
