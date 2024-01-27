@@ -194,6 +194,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			getFavoriteUserAlbums: () => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/album", requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ favoriteUserAlbums: data }))
+					.catch(error => console.log('error', error));
+			},
+
 			getFavoriteSongs: (id) => {
 				var requestOptions = {
 					method: 'GET',
