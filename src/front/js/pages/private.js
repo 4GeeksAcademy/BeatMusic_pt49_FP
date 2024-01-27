@@ -83,7 +83,7 @@ export const Private = () => {
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
                             {store.userId === parseInt(params.user_id) ? null :
-                                <p>Match Percentage: {actions.artistMatchPercentage(userArtists, friendArtists)}%</p>
+                                <p>Match Percentage: {actions.matchPercentage(userArtists, friendArtists)}%</p>
                             }
                             <ul className="list-group">
                                 {store.favoriteArtists.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteArtists.map((item) => {
@@ -106,6 +106,9 @@ export const Private = () => {
                         </div>
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Albums</h2>
+                            {store.userId === parseInt(params.user_id) ? null :
+                                <p>Match Percentage: {actions.matchPercentage(userAlbums, friendAlbums)}%</p>
+                            }
                             <ul className="list-group">
                                 {store.favoriteAlbums.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteAlbums.map((item) => {
                                     return (
