@@ -22,11 +22,11 @@ export const Songs = () => {
 						return (
 							<li key={item.id} className="list-group-item">
 								<div className="row">
-									<div className="col-2 d-flex align-items-center justify-content-center">
-										<img src={item.img_url} className="img-thumbnail rounded-circle" />
-									</div>
 									<div className="col-6">
 										<p className="fs-5 fw-bold">{item.name}</p>
+									</div>
+									<div className="col-2">
+										<p className="fs-5 fw-bold">{item.length}</p>
 									</div>
 									<div className="col-4 d-flex align-items-center justify-content-evenly">
 										{favorites.includes(item.name) ? null :
@@ -46,3 +46,5 @@ export const Songs = () => {
 		</div>
 	);
 };
+
+export default Songs;
