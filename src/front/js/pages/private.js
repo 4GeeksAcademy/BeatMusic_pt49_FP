@@ -75,7 +75,7 @@ export const Private = () => {
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
                             {store.userId === parseInt(params.user_id) ? null :
-                                <p>Match Percentage: {store.artistMatchPercentage(userArtists, friendArtists)}%</p>
+                                <p>Match Percentage: {actions.artistMatchPercentage(userArtists, friendArtists)}%</p>
                             }
                             <ul className="list-group">
                                 {store.favoriteArtists.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteArtists.map((item) => {
