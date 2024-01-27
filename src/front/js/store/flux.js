@@ -406,7 +406,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
-			artistMatchPercentage: (user, friend) => {
+			matchPercentage: (user, friend) => {
 				const shorterArray = user.length <= friend.length ? user : friend
 				const longerArray = user.length <= friend.length ? friend : user
 				const matchingItems = shorterArray.filter(item => longerArray.includes(item))
