@@ -515,6 +515,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(() => { setStore({ username: name }) })
 					.catch(error => console.log('error', error));
 			},
+
+			editPassword: (password) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'PUT',
+					redirect: 'follow',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						"password": password
+					})
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.catch(error => console.log('error', error));
+			},
 			
 			logout: () => {
 				const store = getStore();
