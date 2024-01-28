@@ -57,6 +57,12 @@ export const Private = () => {
         }
     }, [store.favoriteUserSongs]);
 
+    useEffect(() => {
+        if (store.friends) {
+            actions.getFriends(params.user_id);
+        }
+    }, [store.friends]);
+
     return (
         <div className="text-center mt-5">
             {store.auth == false ? <Navigate to="/" /> :
@@ -69,30 +75,20 @@ export const Private = () => {
                     <div className="row">
                         <div className="col-3 border border-primary rounded">
                             <h2>Friends</h2>
-
-                                <ul className="list-group">
-                                    <li key={user1Id} className="list-group-item">
+                            {store.friends.length == 0 ? <li><p>No Friends yet.</p></li> : store.friends.map((item) => {
+                                return (
+                                    <li key={item.following_user_id} className="list-group-item">
                                         <div className="row">
                                             <div className="col-10">
-                                                <p className="fs-5 fw-bold">Miguel</p>
+                                                <p className="fs-5 fw-bold">{item.name}</p>
                                             </div>
                                             <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                <button onClick={()=>{navigate("/private/" + user1Id)}} className="btn btn-primary mx-1">See Profile</button>
+                                                <button onClick={()=>{navigate("/private/" + item.following_user_id)}} className="btn btn-primary mx-1">See Profile</button>
                                             </div>
                                         </div>
                                     </li>
-                                    <li key={user2Id} className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-10">
-                                                <p className="fs-5 fw-bold">Diego</p>
-                                            </div>
-                                            <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                <button onClick={()=>{navigate("/private/" + user2Id)}} className="btn btn-primary mx-1">See Profile</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-
+                                );
+                            })}
                         </div>
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
