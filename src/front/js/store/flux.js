@@ -30,6 +30,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			favoriteUserSongs: [],
 			userId: 0,
 			username: "",
+			friends: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -230,6 +231,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/favorites/song", requestOptions)
 					.then(response => response.json())
 					.then(data => setStore({ favoriteUserSongs: data }))
+					.catch(error => console.log('error', error));
+			},
+
+			getFriends: (id) => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + id + "/friends", requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ friends: data }))
 					.catch(error => console.log('error', error));
 			},
 
