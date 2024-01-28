@@ -11,8 +11,8 @@ class User(db.Model):
     favorite_artist = db.relationship('FavoriteArtist', lazy=True)
     favorite_album = db.relationship('FavoriteAlbum', lazy=True)
     favorite_song = db.relationship('FavoriteSong', lazy=True)
-    follower = db.relationship('FollowingUsers', foreign_keys='FollowingUsers.user_id', back_populates='user')
-    following = db.relationship('FollowingUsers', foreign_keys='FollowingUsers.following_id', back_populates='following')
+    following_users = db.relationship('FollowingUsers', back_populates='user', foreign_keys='FollowingUsers.user_id', lazy=True)
+
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -143,9 +143,9 @@ class FollowingUsers(db.Model):
     __tablename__ = 'following_users'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', back_populates='follower', foreign_keys=[user_id])
+    user = db.relationship('User', back_populates='following_users', foreign_keys=[user_id])
     following_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    following = db.relationship('User', back_populates='following', foreign_keys=[following_id])
+    following = db.relationship('User', back_populates='following_users', foreign_keys=[following_id])
 
     def __repr__(self):
         return '<FollowingUsers %r>' % self.following_id
