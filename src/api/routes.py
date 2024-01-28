@@ -281,7 +281,7 @@ def get_user_favorite_song(user_id):
 @api.route('/users/<int:user_id>/friends', methods=['GET'])
 def get_user_friends(user_id):
     user = User.query.filter_by(id=user_id).first()
-    response_body = [item.serialize() for item in user.following]
+    response_body = [item.serialize() for item in user.following_users]
     
 
     return jsonify(response_body), 200
@@ -324,6 +324,28 @@ def add_favorite_song(user_id, song_id):
     }
 
     return jsonify(response_body), 201
+
+@api.route('/users/<int:user_id>/friends/<int:following_id>', methods=['POST'])
+def add_favorite_friend(user_id, following_id):
+    new_friend = FollowingUsers(user_id=user_id, following_id=following_id)
+    db.session.add(new_friend)
+    db.session.commit()
+    response_body = {
+        'msg': 'Friend has been added.'
+    }
+ 
+    return jsonify(response_body), 201
+
+@api.route('/users/<int:user_id>/friends/<int:following_id>', methods=['DELETE'])
+def remove_favorite_friend(user_id, following_id):
+    friend_to_delete = FollowingUsers.query.filter_by(user_id=user_id, following_id=following_id).first()
+    db.session.delete(friend_to_delete)
+    db.session.commit()
+    response_body = {
+        'msg': 'Friend has been removed.'
+    }
+
+    return jsonify(response_body), 200
 
 @api.route('/users/<int:user_id>/favorites/artist/<int:artist_id>', methods=['DELETE'])
 def delete_favorite_artist(user_id, artist_id):
