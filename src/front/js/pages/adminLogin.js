@@ -18,16 +18,16 @@ export const AdminLogin = () => {
             {store.authAdmin == true ? <Navigate to="/admin/private" /> :
                 <div className="col-md-6">
                     <p>Admin Login</p>
-                    <form>
+                    <form onSubmit={sendData} >
                         <div className="mb-3">
                             <label htmlFor="emailInput" className="form-label">Email address</label>
-                            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="emailInput" aria-describedby="emailHelp" />
+                            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="emailInput" aria-describedby="emailHelp" required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="passwordInput" className="form-label">Password</label>
-                            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" id="passwordInput" />
+                            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" id="passwordInput" required />
                         </div>
-                        <button onClick={sendData} type="submit" className="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
             }
