@@ -62,7 +62,7 @@ export const Navbar = () => {
 										<button className="dropdown-item">Admin Lists</button>
 									</Link>
 								</li>
-								<li><hr class="dropdown-divider"/></li>
+								<li><hr className="dropdown-divider"/></li>
 								<li>
 									<button onClick={actions.adminLogout} className="btn btn-danger mx-3">Log Out</button>
 								</li>
@@ -80,7 +80,7 @@ export const Navbar = () => {
 										<button className="dropdown-item">Account Settings</button>
 									</Link>
 								</li>
-								<li><hr class="dropdown-divider"/></li>
+								<li><hr className="dropdown-divider"/></li>
 								<li>
 									<button onClick={actions.logout} className="btn btn-danger mx-3">Log Out</button>
 								</li>
