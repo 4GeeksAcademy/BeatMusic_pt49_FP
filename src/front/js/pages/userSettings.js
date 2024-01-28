@@ -11,12 +11,12 @@ export const UserSettings = () => {
     const [repeatPassword, setRepeatPassword] = useState('')
 
     function sendName(e) {
-        e.preventDefault()
+        e.preventDefault(name)
         actions.editProfileName(name)
         navigate("/private/" + store.userId)
     }
     function sendPassword(e) {
-        e.preventDefault()
+        e.preventDefault(password)
         if (password === repeatPassword) {
             actions.editPassword(password)
             navigate("/private/" + store.userId)
