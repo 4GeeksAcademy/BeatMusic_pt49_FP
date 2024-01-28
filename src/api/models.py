@@ -11,6 +11,8 @@ class User(db.Model):
     favorite_artist = db.relationship('FavoriteArtist', lazy=True)
     favorite_album = db.relationship('FavoriteAlbum', lazy=True)
     favorite_song = db.relationship('FavoriteSong', lazy=True)
+    follower = db.relationship('FollowingUsers', foreign_keys='FollowingUsers.user_id', back_populates='user')
+    following = db.relationship('FollowingUsers', foreign_keys='FollowingUsers.following_id', back_populates='following')
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -18,8 +20,7 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "email": self.email,
-            "name": self.email,
+            "email": self.email
             # do not serialize the password, its a security breach
         }
     
@@ -137,3 +138,20 @@ class FavoriteSong(db.Model):
             "song_id": self.song.id,
             "song": self.song.name
         } 
+
+class FollowingUsers(db.Model):
+    __tablename__ = 'following_users'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', back_populates='follower', foreign_keys=[user_id])
+    following_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    following = db.relationship('User', back_populates='following', foreign_keys=[following_id])
+
+    def __repr__(self):
+        return '<FollowingUsers %r>' % self.following_id
+
+    def serialize(self):
+        return {
+            "following_user_id": self.following.id,
+            "name": self.following.name
+        }
