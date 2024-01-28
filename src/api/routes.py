@@ -211,6 +211,20 @@ def create_user():
         return jsonify(response_body), 201
     else:
         return jsonify({"msg":"The user already exists."})
+    
+@api.route('/users/<int:user_id>', methods=['PUT'])
+def edit_user(user_id):
+    user_to_update = User.query.filter_by(id=user_id).first()
+    body = request.get_json()
+    if 'password' in body:
+        user_to_update.password = body['password']
+    if 'name' in body:
+        user_to_update.name = body['name']
+    db.session.commit()
+    response_body = {
+        "msg": "The user has been updated."
+    }
+    return jsonify(response_body), 200
 
 @api.route("/login", methods=["POST"])
 def login():
@@ -224,7 +238,7 @@ def login():
         return jsonify({"msg": "Bad email or password"}), 401
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token, id=user.id)
+    return jsonify(access_token=access_token, id=user.id, name=user.name)
 
 @api.route("/adminlogin", methods=["POST"])
 def admin_login():

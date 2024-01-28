@@ -28,7 +28,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			favoriteUserAlbums: [],
 			favoriteSongs: [],
 			favoriteUserSongs: [],
-			userId: 0
+			userId: 0,
+			username: "",
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -450,7 +451,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							throw new Error('Authentication failed');
 						}
 					})
-					.then(data => { setStore({ auth: true, userId: data.id }) })
+					.then(data => { setStore({ auth: true, userId: data.id, username: data.name }) })
 					.catch(error => console.log('Error:', error));
 			},
 
@@ -495,6 +496,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.then(data => { setStore({ auth: true, userId: data.id }) })
 					.catch(error => console.log('Error:', error));
+			},
+
+			editProfileName: (name) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'PUT',
+					redirect: 'follow',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						"name": name
+					})
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.then(() => { setStore({ username: name }) })
+					.catch(error => console.log('error', error));
+			},
+
+			editPassword: (password) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'PUT',
+					redirect: 'follow',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						"password": password
+					})
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.catch(error => console.log('error', error));
 			},
 			
 			logout: () => {
