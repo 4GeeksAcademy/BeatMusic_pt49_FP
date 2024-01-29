@@ -30,6 +30,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			favoriteUserSongs: [],
 			userId: 0,
 			username: "",
+			friends: [],
+			userFriends: [],
+			profileName: ""
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -135,6 +138,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			addFriend: (id) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'POST',
+					body: "",
+					redirect: 'follow'
+				};
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/friends/" + id, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.then(() => getActions().getFriends(store.userId))
+					.catch(error => console.log('error', error));
+			},
+
 			getAlbum: () => {
 				var requestOptions = {
 					method: 'GET',
@@ -234,6 +251,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 
+			getFriends: (id) => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + id + "/friends", requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ friends: data }))
+					.catch(error => console.log('error', error));
+			},
+
+			getUserFriends: () => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/friends", requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ userFriends: data }))
+					.catch(error => console.log('error', error));
+			},
+
 			getSong: () => {
 				var requestOptions = {
 					method: 'GET',
@@ -279,6 +321,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/song/" + id, requestOptions)
 					.then(response => response.json())
 					.then(data => setStore({ singleSong: data }))
+					.catch(error => console.log('error', error));
+			},
+
+			getUser: (id) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + id, requestOptions)
+					.then(response => response.json())
+					.then(data => setStore({ profileName: data }))
 					.catch(error => console.log('error', error));
 			},
 
@@ -350,6 +405,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.text())
 					.then(result => console.log(result))
 					.then(() => getActions().getFavoriteSongs(store.userId))
+					.catch(error => console.log('error', error));
+			},
+
+			deleteFriend: (id) => {
+				const store = getStore();
+				var requestOptions = {
+					method: 'DELETE',
+					body: "",
+					redirect: 'follow'
+				};
+
+				fetch(process.env.BACKEND_URL + "/api/users/" + store.userId + "/friends/" + id, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.then(() => getActions().getFriends(store.userId))
 					.catch(error => console.log('error', error));
 			},
 
