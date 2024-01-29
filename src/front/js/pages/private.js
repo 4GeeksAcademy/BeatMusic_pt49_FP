@@ -14,12 +14,10 @@ export const Private = () => {
     const friendAlbums = store.favoriteAlbums.map(item => item.album)
     const userSongs = store.favoriteUserSongs.map(item => item.song)
     const friendSongs = store.favoriteSongs.map(item => item.song)
+    const friends = store.userFriends.map(item => item.following_user_id)
     const artistMatch = actions.matchPercentage(userArtists, friendArtists)
     const albumMatch = actions.matchPercentage(userAlbums, friendAlbums)
     const songMatch = actions.matchPercentage(userSongs, friendSongs)
-    //burnt IDs for burnt friends, friends API not working yet
-    const user1Id = 2;
-    const user2Id = 3;
 
     useEffect(() => {
         if (store.favoriteArtists) {
@@ -57,47 +55,61 @@ export const Private = () => {
         }
     }, [store.favoriteUserSongs]);
 
+    useEffect(() => {
+        if (store.friends) {
+            actions.getFriends(params.user_id);
+        }
+    }, [store.friends]);
+
+    useEffect(() => {
+        if (store.userFriends) {
+            actions.getUserFriends();
+        }
+    }, [store.userFriends]);
+
+    useEffect(() => {
+        if (params.user_id) {
+            actions.getUser(params.user_id);
+        }
+    }, [params.user_id]);
+
     return (
         <div className="text-center mt-5">
             {store.auth == false ? <Navigate to="/" /> :
                 <>
-                    <h1>Private</h1>
+                    <h1>{store.userId === parseInt(params.user_id) ? "Private" : store.profileName }</h1>
                     <p>Welcome to your private area.</p>
                     {store.userId === parseInt(params.user_id) ? null :
                         <p>Total Match: {actions.totalMatch(artistMatch, albumMatch, songMatch)}%</p>
                     }
+                    {store.userId === parseInt(params.user_id)
+                        ? null
+                        : friends.includes(parseInt(params.user_id))
+                        ? <button onClick={()=>{actions.deleteFriend(parseInt(params.user_id))}} className="btn btn-danger my-1">Unfollow</button>
+                        : <button onClick={()=>{actions.addFriend(parseInt(params.user_id))}} className="btn btn-success my-1">Follow</button>
+                    } 
                     <div className="row">
                         <div className="col-3 border border-primary rounded">
                             <h2>Friends</h2>
-
-                                <ul className="list-group">
-                                    <li key={user1Id} className="list-group-item">
+                            {store.friends.length == 0 ? <li><p>No Friends yet.</p></li> : store.friends.map((item) => {
+                                return (
+                                    <li key={item.following_user_id} className="list-group-item">
                                         <div className="row">
                                             <div className="col-10">
-                                                <p className="fs-5 fw-bold">Miguel</p>
+                                                <p className="fs-5 fw-bold">{item.name}</p>
                                             </div>
                                             <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                <button onClick={()=>{navigate("/private/" + user1Id)}} className="btn btn-primary mx-1">See Profile</button>
+                                                <button onClick={()=>{navigate("/private/" + item.following_user_id)}} className="btn btn-primary mx-1">See Profile</button>
                                             </div>
                                         </div>
                                     </li>
-                                    <li key={user2Id} className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-10">
-                                                <p className="fs-5 fw-bold">Diego</p>
-                                            </div>
-                                            <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                <button onClick={()=>{navigate("/private/" + user2Id)}} className="btn btn-primary mx-1">See Profile</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-
+                                );
+                            })}
                         </div>
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
                             {store.userId === parseInt(params.user_id) ? null :
-                                <p>Match: {artistMatch}%</p>
+                                <p>Match: {artistMatch.inclu}%</p>
                             }
                             <ul className="list-group">
                                 {store.favoriteArtists.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteArtists.map((item) => {
