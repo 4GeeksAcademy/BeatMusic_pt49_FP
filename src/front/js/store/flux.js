@@ -29,6 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			
 			createAlbum: (name, url) => {
 				const requestOptions = {
 					method: 'POST',
