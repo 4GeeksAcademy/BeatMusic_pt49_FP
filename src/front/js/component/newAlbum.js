@@ -4,7 +4,7 @@ import "../../styles/home.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, InputGroup, FormControl, Button, Row, Card, CardTitle, CardImg } from "react-bootstrap";
 
-onst CLIENT_ID = '3859789f63b8461c86e0f453ebbecfd1';
+const CLIENT_ID = '3859789f63b8461c86e0f453ebbecfd1';
 const CLIENT_SECRET = '21d7f7f60938433eac36f6a0e5ff0de9';
 
 export const NewAlbum = () => {
