@@ -196,7 +196,7 @@ def get_adminUsers():
 def get_user(user_id):
     results = User.query.filter_by(id=user_id).first()
 
-    return jsonify(results.serialize()), 200
+    return jsonify(results.name), 200
 
 @api.route('/users', methods=['POST'])
 def create_user():
