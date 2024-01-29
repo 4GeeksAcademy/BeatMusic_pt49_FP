@@ -14,12 +14,10 @@ export const Private = () => {
     const friendAlbums = store.favoriteAlbums.map(item => item.album)
     const userSongs = store.favoriteUserSongs.map(item => item.song)
     const friendSongs = store.favoriteSongs.map(item => item.song)
+    const friends = store.userFriends.map(item => item.following_user_id)
     const artistMatch = actions.matchPercentage(userArtists, friendArtists)
     const albumMatch = actions.matchPercentage(userAlbums, friendAlbums)
     const songMatch = actions.matchPercentage(userSongs, friendSongs)
-    //burnt IDs for burnt friends, friends API not working yet
-    const user1Id = 2;
-    const user2Id = 3;
 
     useEffect(() => {
         if (store.favoriteArtists) {
@@ -63,15 +61,33 @@ export const Private = () => {
         }
     }, [store.friends]);
 
+    useEffect(() => {
+        if (store.userFriends) {
+            actions.getUserFriends();
+        }
+    }, [store.userFriends]);
+
+    useEffect(() => {
+        if (params.user_id) {
+            actions.getUser(params.user_id);
+        }
+    }, [params.user_id]);
+
     return (
         <div className="text-center mt-5">
             {store.auth == false ? <Navigate to="/" /> :
                 <>
-                    <h1>Private</h1>
+                    <h1>{store.userId === parseInt(params.user_id) ? "Private" : store.profileName }</h1>
                     <p>Welcome to your private area.</p>
                     {store.userId === parseInt(params.user_id) ? null :
                         <p>Total Match: {actions.totalMatch(artistMatch, albumMatch, songMatch)}%</p>
                     }
+                    {store.userId === parseInt(params.user_id)
+                        ? null
+                        : friends.includes(parseInt(params.user_id))
+                        ? <button onClick={()=>{actions.deleteFriend(parseInt(params.user_id))}} className="btn btn-danger my-1">Unfollow</button>
+                        : <button onClick={()=>{actions.addFriend(parseInt(params.user_id))}} className="btn btn-success my-1">Follow</button>
+                    } 
                     <div className="row">
                         <div className="col-3 border border-primary rounded">
                             <h2>Friends</h2>
@@ -93,7 +109,7 @@ export const Private = () => {
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Artists</h2>
                             {store.userId === parseInt(params.user_id) ? null :
-                                <p>Match: {artistMatch}%</p>
+                                <p>Match: {artistMatch.inclu}%</p>
                             }
                             <ul className="list-group">
                                 {store.favoriteArtists.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteArtists.map((item) => {
