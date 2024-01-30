@@ -1,38 +1,75 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 export const Signup = () => {
-    const { store, actions } = useContext(Context)
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const { store, actions } = useContext(Context);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     function sendData(e) {
-        e.preventDefault(email, password)
-        actions.signup(email, password)
-
+        e.preventDefault();
+        actions.signup(email, password);
     }
 
     return (
-        <div className="container mt-5">
-            {store.auth == true ? <Navigate to="/signup2" /> :
-                <div className="col-md-6">
-                    <form onSubmit={sendData} >
-                        <div className="mb-3">
-                            <label htmlFor="emailInput" className="form-label">Email address</label>
-                            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="emailInput" aria-describedby="emailHelp" required />
-                            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="passwordInput" className="form-label">Password</label>
-                            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" id="passwordInput" required />
-                        </div>
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </form>
+        <>
+            <div className="py-15 py-xl-20 d-flex flex-column container level-3 min-vh-100">
+                <div className="row align-items-center justify-content-center my-auto">
+                    <div className="col-md-10 col-lg-8 col-xl-5">
+                        {store.auth === true ? (
+                            <Navigate to="/signup2" />
+                        ) : (
+                            <div className="card">
+                                <div className="card-header bg-white text-center border-0 pb-0">
+                                    <h5 className="fs-4 my-4">Sign Up</h5>
+                                </div>
+                                <div className="card-body bg-white">
+                                    <div className="d-grid">
+                                    </div>
+                                    <form onSubmit={sendData}>
+                                        <div className="form-floating mb-2">
+                                            <input
+                                                type="email"
+                                                className="form-control"
+                                                id="floatingInput"
+                                                placeholder="name@example.com"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                required
+                                            />
+                                            <label htmlFor="floatingInput">Email address</label>
+                                        </div>
+                                        <div className="form-floating mb-2">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                id="floatingPassword"
+                                                placeholder="Password"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                required
+                                            />
+                                            <label htmlFor="floatingPassword">Password</label>
+                                        </div>
+                                        <div className="d-grid mt-3">
+                                            <button type="submit" className="btn btn-lg btn-primary btn-green">
+                                                Go!
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div className="card-footer border-0 bg-white inverted text-center">
+                                    <p className="text-secondary">
+                                        Already have an account? <a href="/login" className="link-green">Log In</a>
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
-            }
-        </div>
+            </div>
+        </>
     );
 };
