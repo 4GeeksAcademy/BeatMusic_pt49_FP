@@ -6,7 +6,7 @@ body {
     background-color: black;
     background-size: cover;
     background-position: center;
-    background-image: url('../img/bg.jpg'); /* Add the path to your image */
+    background-image: url('../img/background.png'); /* Add the path to your image */
 }
 .btn-pink {
     border-radius: 30px;
@@ -41,4 +41,18 @@ body {
 .link-green:hover {
     color: #2adb03;
     text-decoration: none;
+}
+.jumbotron {
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+.fade-in-text {
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+.fade-in {
+    opacity: 1;
+}
+.logs-div {
+    margin-bottom: 200px;
 }
