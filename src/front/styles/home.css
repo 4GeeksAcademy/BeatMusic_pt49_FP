@@ -6,7 +6,7 @@ body {
     background-color: black;
     background-size: cover;
     background-position: center;
-    background-image: url('../img/background.png'); /* Add the path to your image */
+    background-image: url('../img/Background.png'); /* Add the path to your image */
 }
 .btn-pink {
     border-radius: 30px;
