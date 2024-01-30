@@ -6,6 +6,7 @@ export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
+		
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
 				<Link to="/">
@@ -40,16 +41,6 @@ export const Navbar = () => {
 								</li>
 							</ul>
 						</div>
-					}
-					{store.auth == true || store.authAdmin == true ? null :
-						<Link to="/signup">
-							<button className="btn btn-success mx-1">Sign Up</button>
-						</Link>
-					}
-					{store.auth == true || store.authAdmin == true ? null :
-						<Link to="/login">
-							<button className="btn btn-primary mx-1">Log In</button>
-						</Link>
 					}
 					{store.authAdmin == false ? null :
 						<div className="btn-group mx-1">
@@ -87,9 +78,6 @@ export const Navbar = () => {
 							</ul>
 						</div>
 					}
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
 				</div>
 			</div>
 		</nav>
