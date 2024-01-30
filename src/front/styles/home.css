@@ -1,7 +1,44 @@
-/*
-    home.css: This website contains selectors only used in home.css
-
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+body {
+    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../img/bg.jpg'); /* Add the path to your image */
+}
+.btn-pink {
+    border-radius: 30px;
+    background-color: #ff00c3;
+    border-color: #ff00c3;
+}
+.btn-pink:hover {
+    background-color: #db02a8;
+    border-color: #db02a8;
+}
+.link-pink {
+    color: #ff00c3;
+    text-decoration: none;
+}
+.link-pink:hover {
+    color: #db02a8;
+    text-decoration: none;
+}
+.btn-green {
+    border-radius: 30px;
+    background-color: #2ced01;
+    border-color: #2ced01;
+}
+.btn-green:hover {
+    background-color: #2adb03;
+    border-color: #2adb03;
+}
+.link-green {
+    color: #2ced01;
+    text-decoration: none;
+}
+.link-green:hover {
+    color: #2adb03;
+    text-decoration: none;
+}
