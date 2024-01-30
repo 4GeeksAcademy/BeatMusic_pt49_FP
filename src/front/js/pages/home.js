@@ -1,26 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
+	const navigate = useNavigate();
+	useEffect(() => {
+		const jumbotronText = document.querySelector('.fade-in-text');
+		jumbotronText.classList.add('fade-in');
+	  }, []);
 	
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
+		<>
+			<div className="jumbotron text-center">
+				<h1 className="text-white display-2 fade-in-text">let us vibe to your rhythm</h1>
 			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
-		</div>
+			<div className="row d-flex justify-content-center logs-div">
+				<div className="col-auto">
+					<button onClick={()=>{navigate("/signup")}} className="btn btn-lg btn-primary mx-4 btn-green">
+                         Sign Up
+                    </button>
+				</div>
+				<div className="col-auto">
+					<button onClick={()=>{navigate("/login")}} className="btn btn-lg btn-primary mx-4 btn-pink">
+                         Sign In
+                    </button>
+				</div>
+			</div>
+		</>
 	);
-};
+}
