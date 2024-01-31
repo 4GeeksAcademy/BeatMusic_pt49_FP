@@ -73,3 +73,6 @@ body {
 a {
     text-decoration: none;
 }
+.item-fav {
+    border-radius: 30px;
+}
