@@ -12,22 +12,22 @@ export const ListArtist = () => {
 				<>
 					<div className="d-flex justify-content-end my-3">
 						<Link to="/admin/newartist">
-							<button className="btn btn-success">Add new artist</button>
+							<button className="btn btn-success btn-green">Add new artist</button>
 						</Link>
 					</div>
 					<ul className="list-group">
 						<li className="list-group-item">
 							<div className="row">
-								<div className="col-2">
+								<div className="col-2 d-flex align-self-center">
 									<p className="fs-5 fw-bold">Picture</p>
 								</div>
-								<div className="col-2">
+								<div className="col-2 d-flex align-self-center justify-content-center">
 									<p className="fs-5 fw-bold">Artist ID</p>
 								</div>
-								<div className="col-6">
+								<div className="col-6 d-flex align-self-center">
 									<p className="fs-5 fw-bold">Name</p>
 								</div>
-								<div className="col-2">
+								<div className="col-2 d-flex align-self-center">
 									<p className="fs-5 fw-bold">Edit / Delete</p>
 								</div>
 							</div>
@@ -36,16 +36,16 @@ export const ListArtist = () => {
 							return (
 								<li key={item.id} className="list-group-item">
 									<div className="row">
-										<div className="col-2 d-flex align-items-center justify-content-center">
+										<div className="col-2 d-flex align-self-center justify-content-center">
 											<img src={item.img_url} className="img-thumbnail rounded-circle" />
 										</div>
-										<div className="col-2">
-											<p className="fs-5 fw-bold">{item.id}</p>
+										<div className="col-2 d-flex align-self-center justify-content-center">
+											<p className="fs-5 fw-bold d-flex">{item.id}</p>
 										</div>
-										<div className="col-6">
+										<div className="col-6 d-flex align-self-center">
 											<p className="fs-5 fw-bold">{item.name}</p>
 										</div>
-										<div className="col-2 d-flex align-items-center justify-content-evenly">
+										<div className="col-2 d-flex align-self-center">
 											<Link to={"/admin/editartist/" + item.id}>
 												<button className="btn text-dark">
 													<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-pencil-fill" viewBox="0 0 16 16">
