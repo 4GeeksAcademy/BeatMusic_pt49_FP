@@ -34,8 +34,8 @@ export const Artists = () => {
                                         </div>
                                         <div className="col-sm-2 co-lg-2 d-flex align-self-center justify-content-evenly">
                                             {favorites.includes(item.name) ?
-                                                <button onClick={() => { actions.deleteFavoriteArtist(item.id) }} className="btn btn-danger">Delete from Favorites</button> :
-                                                <button onClick={() => { actions.addFavoriteArtist(item.id) }} className="btn btn-success">Add to Favorites</button>
+                                                <button onClick={() => { actions.deleteFavoriteArtist(item.id) }} className="btn btn-danger btn-green">Delete Favorite</button> :
+                                                <button onClick={() => { actions.addFavoriteArtist(item.id) }} className="btn btn-success btn-pink">Add to Favorites</button>
 											}
                                         </div>
                                     </div>
