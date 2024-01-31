@@ -26,13 +26,13 @@ export const Albums = () => {
 							return (
 								<li key={item.id} className="list-group-item border-0 my-2">
 									<div className="row">
-										<div className="col-2 d-flex align-items-center justify-content-center">
+										<div className="col-sm-4 col-lg-2 d-flex align-self-center">
 											<img src={item.img_url} className="img-thumbnail rounded-circle" />
 										</div>
 										<div className="col-sm-6 col-lg-8 d-flex align-self-center">
 											<p className="display-5 fw-bold">{item.name}</p>
 										</div>
-										<div className="col-sm-2 co-lg-2 d-flex align-items-center justify-content-evenly">
+										<div className="col-sm-2 co-lg-2 d-flex align-self-center justify-content-evenly">
 											{favorites.includes(item.name) ?
 												<button onClick={() => { actions.deleteFavoriteAlbum(item.id) }} className="btn btn-danger btn-green">Delete Favorite</button> :
 												<button onClick={() => { actions.addFavoriteAlbum(item.id) }} className="btn btn-success btn-pink">Add to Favorites</button>
