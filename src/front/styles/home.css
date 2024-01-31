@@ -31,20 +31,21 @@ body {
     border-color: #2ced01;
 }
 .btn-green:hover {
-    background-color: #2adb03;
-    border-color: #2adb03;
+    background-color: #29d104;
+    border-color: #29d104;
 }
 .link-green {
     color: #2ced01;
     text-decoration: none;
 }
 .link-green:hover {
-    color: #2adb03;
+    color: #29d104;
     text-decoration: none;
 }
 .jumbotron {
     margin-top: 200px;
     margin-bottom: 200px;
+    background-image: url('../img/Background.png')
 }
 .fade-in-text {
     opacity: 0;
@@ -55,4 +56,20 @@ body {
 }
 .logs-div {
     margin-bottom: 200px;
+}
+.logo {
+    max-height: 80px;
+}
+.navbar-dark .navbar-toggler {
+    border-color: #ff00c3;
+}
+.navbar-toggler-icon, .offcanvas-title {
+    color: #ff00c3;
+}
+.offcanvas {
+    background-color: black;
+    border-color: #ff00c3;
+}
+a {
+    text-decoration: none;
 }
