@@ -17,12 +17,12 @@ export const Home = () => {
 			</div>
 			<div className="row d-flex justify-content-center logs-div">
 				<div className="col-auto">
-					<button onClick={()=>{navigate("/signup")}} className="btn btn-lg btn-primary mx-4 btn-green">
+					<button onClick={()=>{navigate("/signup")}} className="btn btn-lg btn-primary mx-4 my-2 btn-green">
                          Sign Up
                     </button>
 				</div>
 				<div className="col-auto">
-					<button onClick={()=>{navigate("/login")}} className="btn btn-lg btn-primary mx-4 btn-pink">
+					<button onClick={()=>{navigate("/login")}} className="btn btn-lg btn-primary mx-4 my-2 btn-pink">
                          Sign In
                     </button>
 				</div>
