@@ -31,7 +31,7 @@ export const Navbar = () => {
 							<li className="nav-item d-flex align-self-center mx-2">
 								{store.auth == false ? null :
 									<Link to={"/private/" + store.userId}>
-										<a className="nav-link active" aria-current="page">Wall</a>
+										<span className="nav-link active" aria-current="page">Wall</span>
 									</Link>
 								}
 							</li>
@@ -44,17 +44,17 @@ export const Navbar = () => {
 										<ul className="dropdown-menu dropdown-menu-end">
 											<li>
 												<Link to="/artists">
-													<a className="dropdown-item">Artists</a>
+													<span className="dropdown-item">Artists</span>
 												</Link>
 											</li>
 											<li>
 												<Link to="/albums">
-													<a className="dropdown-item">Albums</a>
+													<span className="dropdown-item">Albums</span>
 												</Link>
 											</li>
 											<li>
 												<Link to="/songs">
-													<a className="dropdown-item">Songs</a>
+													<span className="dropdown-item">Songs</span>
 												</Link>
 											</li>
 										</ul>
@@ -69,7 +69,7 @@ export const Navbar = () => {
 									<ul className="dropdown-menu dropdown-menu-end">
 										<li>
 											<Link to="/account">
-												<a className="dropdown-item">Account Settings</a>
+												<span className="dropdown-item">Account Settings</span>
 											</Link>
 										</li>
 										<li><hr className="dropdown-divider"/></li>
@@ -87,7 +87,7 @@ export const Navbar = () => {
 									<ul className="dropdown-menu dropdown-menu-end">
 										<li>
 											<Link to="/admin/private">
-												<a className="dropdown-item">Admin Lists</a>
+												<span className="dropdown-item">Admin Lists</span>
 											</Link>
 										</li>
 										<li><hr className="dropdown-divider"/></li>
