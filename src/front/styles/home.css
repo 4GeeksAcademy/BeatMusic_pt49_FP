@@ -76,3 +76,6 @@ a {
 .item-fav {
     border-radius: 30px;
 }
+.rounded-circle {
+    border-color: #ff00c3;
+}
