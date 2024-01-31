@@ -4,9 +4,6 @@ body {
     font-family: 'Roboto', sans-serif;
     font-family: 'Roboto Mono', monospace;
     background-color: black;
-    background-size: cover;
-    background-position: center;
-    background-image: url('../img/Background.png'); /* Add the path to your image */
 }
 .btn-pink {
     border-radius: 30px;
@@ -42,10 +39,9 @@ body {
     color: #29d104;
     text-decoration: none;
 }
-.jumbotron {
-    margin-top: 200px;
-    margin-bottom: 200px;
-    background-image: url('../img/Background.png')
+.padding-index {
+    padding-top: 200px;
+    padding-bottom: 300px;
 }
 .fade-in-text {
     opacity: 0;
@@ -55,6 +51,7 @@ body {
     opacity: 1;
 }
 .logs-div {
+    margin-top: 200px;
     margin-bottom: 200px;
 }
 .logo {
@@ -78,4 +75,8 @@ a {
 }
 .rounded-circle {
     border-color: #ff00c3;
+}
+.btn-index{
+    padding: 15px 40px;
+    font-weight: 500;
 }
