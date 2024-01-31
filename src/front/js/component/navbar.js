@@ -28,14 +28,14 @@ export const Navbar = () => {
 					</div>
 					<div className="offcanvas-body">
 						<ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-							<li className="nav-item">
+							<li className="nav-item d-flex align-self-center mx-2">
 								{store.auth == false ? null :
 									<Link to={"/private/" + store.userId}>
 										<a className="nav-link active" aria-current="page">Wall</a>
 									</Link>
 								}
 							</li>
-							<li className="nav-item dropdown">
+							<li className="nav-item dropdown d-flex align-self-center mx-2">
 								{store.auth == false ? null :
 									<>
 										<a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,14 +62,14 @@ export const Navbar = () => {
 								}
 							</li>
 							{store.auth == false ? null :
-								<div className="btn-group mx-1">
-									<button className="btn btn-primary dropdown-toggle btn-pink" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-									{store.username}
-									</button>
+								<li className="nav-item dropdown btn btn-pink mx-2">
+									<a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										{store.username}
+									</a>
 									<ul className="dropdown-menu dropdown-menu-end">
 										<li>
 											<Link to="/account">
-												<button className="dropdown-item">Account Settings</button>
+												<a className="dropdown-item">Account Settings</a>
 											</Link>
 										</li>
 										<li><hr className="dropdown-divider"/></li>
@@ -77,17 +77,17 @@ export const Navbar = () => {
 											<button onClick={actions.logout} className="dropdown-item link-pink">Log Out</button>
 										</li>
 									</ul>
-								</div>
+								</li>
 							}
 							{store.authAdmin == false ? null :
-								<div className="btn-group mx-1">
-									<button className="btn btn-primary dropdown-toggle btn-green" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-									Admin
-									</button>
+								<li className="nav-item dropdown btn btn-green mx-2">
+									<a className="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Admin
+									</a>
 									<ul className="dropdown-menu dropdown-menu-end">
 										<li>
 											<Link to="/admin/private">
-												<button className="dropdown-item">Admin Lists</button>
+												<a className="dropdown-item">Admin Lists</a>
 											</Link>
 										</li>
 										<li><hr className="dropdown-divider"/></li>
@@ -95,7 +95,7 @@ export const Navbar = () => {
 											<button onClick={actions.adminLogout} className="dropdown-item link-green">Log Out</button>
 										</li>
 									</ul>
-								</div>
+								</li>
 							}
 						</ul>
 					</div>
