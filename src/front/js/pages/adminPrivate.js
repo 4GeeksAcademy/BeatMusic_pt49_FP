@@ -14,11 +14,11 @@ export const AdminPrivate = () => {
                     <br></br>
                     <p className="text-white">Select what you'd like to manage.</p>
                     <br></br>
-                    <Link to="/admin/listalbum">
-                        <button className="btn btn-primary btn-green my-2 mx-2">Admin List Album</button>
-                    </Link>
                     <Link to="/admin/listartist">
                         <button className="btn btn-primary btn-green my-2 mx-2">Admin List Artist</button>
+                    </Link>
+                    <Link to="/admin/listalbum">
+                        <button className="btn btn-primary btn-green my-2 mx-2">Admin List Album</button>
                     </Link>
                     <Link to="/admin/listsong">
                         <button className="btn btn-primary btn-green my-2 mx-2">Admin List Song</button>
