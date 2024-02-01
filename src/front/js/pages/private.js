@@ -18,6 +18,7 @@ export const Private = () => {
     const artistMatch = actions.matchPercentage(userArtists, friendArtists)
     const albumMatch = actions.matchPercentage(userAlbums, friendAlbums)
     const songMatch = actions.matchPercentage(userSongs, friendSongs)
+    const [currentCounter, setCurrentCounter] = useState(0);
 
     useEffect(() => {
         if (store.favoriteArtists) {
@@ -73,6 +74,22 @@ export const Private = () => {
         }
     }, [params.user_id]);
 
+    useEffect(() => {
+        setCurrentCounter(0);
+        const totalMatchPercentage = actions.totalMatch(artistMatch, albumMatch, songMatch);
+        const stepSize = totalMatchPercentage / 100;
+        const interval = setInterval(() => {
+            setCurrentCounter(prevCounter => {
+                if (prevCounter + stepSize >= totalMatchPercentage) {
+                    clearInterval(interval);
+                    return totalMatchPercentage;
+                }
+                return prevCounter + stepSize;
+            });
+        }, 20);
+        return () => clearInterval(interval);
+    }, [artistMatch, albumMatch, songMatch]);
+
     return (
         <div className="container mt-5">
             {store.auth == false ? <Navigate to="/" /> :
@@ -83,7 +100,7 @@ export const Private = () => {
                         </div>
                         <div className="col-sm-6 col-lg-2 link-pink">
                             {store.userId === parseInt(params.user_id) ? null :
-                                <h1 className="display-2 link-pink">{actions.totalMatch(artistMatch, albumMatch, songMatch)}%</h1>
+                                <h1 className="display-2 link-pink">{Math.round(currentCounter)}%</h1>
                             }
                         </div>
                         <div className="col-sm-6 col-lg-2 link-pink">
