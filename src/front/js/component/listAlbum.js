@@ -12,7 +12,7 @@ export const ListAlbum = () => {
 				<>
 					<div className="d-flex justify-content-end my-3">
 						<Link to="/admin/newalbum">
-							<button className="btn btn-success btn-green">Add new album</button>
+							<button className="btn text-white btn-green">Add new album</button>
 						</Link>
 					</div>
 					<ul className="list-group">
