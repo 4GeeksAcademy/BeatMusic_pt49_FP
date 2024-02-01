@@ -80,3 +80,13 @@ a {
     padding: 15px 40px;
     font-weight: 500;
 }
+.card-index {
+    height: 800px;
+    border-radius: 30px;
+}
+.bg-pink {
+    background-color: #ff00c3;
+}
+.tx-shadow {
+    text-shadow: rgb(0, 0, 0) 1px 0 10px;
+}
