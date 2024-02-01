@@ -90,13 +90,13 @@ export const Private = () => {
                             {store.userId === parseInt(params.user_id)
                                 ? null
                                 : friends.includes(parseInt(params.user_id))
-                                ? <button onClick={()=>{actions.deleteFriend(parseInt(params.user_id))}} className="btn btn-danger btn-green my-3">Unfollow</button>
-                                : <button onClick={()=>{actions.addFriend(parseInt(params.user_id))}} className="btn btn-success btn-pink my-3">Follow</button>
+                                ? <button onClick={()=>{actions.deleteFriend(parseInt(params.user_id))}} className="btn text-white btn-green my-3">Unfollow</button>
+                                : <button onClick={()=>{actions.addFriend(parseInt(params.user_id))}} className="btn text-white btn-pink my-3">Follow</button>
                             }
                         </div>
                     </div>
                     <div className="row mt-3">
-                        <div className="col-sm-12 col-lg-2 rounded bg-white">
+                        <div className="col-sm-12 col-lg-2 mb-2 rounded bg-white">
                             <h2 className="link-pink pt-2">Friends</h2>
                             {store.friends.length == 0 ? <li><p>No Friends yet.</p></li> : store.friends.map((item) => {
                                 return (
@@ -120,7 +120,7 @@ export const Private = () => {
                                 </div>
                                 <div className="col-sm-2 d-flex align-self-center">
                                     {store.userId === parseInt(params.user_id) ? null :
-                                        <p className="link-green m-0">Match: {artistMatch}%</p>
+                                        <h5 className="link-green m-0">Match: {artistMatch}%</h5>
                                     }
                                 </div>
                             </div>
@@ -135,7 +135,7 @@ export const Private = () => {
                                                         </div>
                                                         {store.userId === parseInt(params.user_id) ?
                                                             <div className="col-auto d-flex align-self-center">
-                                                                <button onClick={()=> {actions.deleteFavoriteArtist(item.artist_id)}} className="btn btn-danger btn-green">Delete</button>
+                                                                <button onClick={()=> {actions.deleteFavoriteArtist(item.artist_id)}} className="btn text-white btn-green">Delete</button>
                                                             </div>
                                                         : null }
                                                     </div>
@@ -150,7 +150,7 @@ export const Private = () => {
                                 </div>
                                 <div className="col-sm-2 d-flex align-self-center">
                                     {store.userId === parseInt(params.user_id) ? null :
-                                        <p className="link-green m-0">Match: {albumMatch}%</p>
+                                        <h5 className="link-green m-0">Match: {albumMatch}%</h5>
                                     }
                                 </div>
                             </div>
@@ -165,7 +165,7 @@ export const Private = () => {
                                                     </div>
                                                     {store.userId === parseInt(params.user_id) ?
                                                         <div className="col-auto d-flex align-self-center">
-                                                            <button onClick={()=> {actions.deleteFavoriteAlbum(item.album_id)}} className="btn btn-danger btn-green">Delete</button>
+                                                            <button onClick={()=> {actions.deleteFavoriteAlbum(item.album_id)}} className="btn text-white btn-green">Delete</button>
                                                         </div>
                                                     : null }
                                                 </div>
@@ -180,7 +180,7 @@ export const Private = () => {
                                 </div>
                                 <div className="col-sm-2 d-flex align-self-center">
                                     {store.userId === parseInt(params.user_id) ? null :
-                                        <p className="link-green m-0">Match: {songMatch}%</p>
+                                        <h5 className="link-green m-0">Match: {songMatch}%</h5>
                                     }
                                 </div>
                             </div>
@@ -195,7 +195,7 @@ export const Private = () => {
                                                     </div>
                                                     {store.userId === parseInt(params.user_id) ?
                                                         <div className="col-auto d-flex align-self-center">
-                                                            <button onClick={()=> {actions.deleteFavoriteSong(item.song_id)}} className="btn btn-danger btn-green">Delete</button>
+                                                            <button onClick={()=> {actions.deleteFavoriteSong(item.song_id)}} className="btn text-white btn-green">Delete</button>
                                                         </div>
                                                     : null }
                                                 </div>
