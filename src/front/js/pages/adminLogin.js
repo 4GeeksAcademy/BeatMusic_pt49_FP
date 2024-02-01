@@ -52,7 +52,7 @@ export const AdminLogin = () => {
                                             <label htmlFor="floatingPassword">Password</label>
                                         </div>
                                         <div className="d-grid my-3">
-                                            <button type="submit" className="btn btn-lg btn-primary btn-green">
+                                            <button type="submit" className="btn btn-lg text-white btn-green">
                                                 Go!
                                             </button>
                                         </div>
