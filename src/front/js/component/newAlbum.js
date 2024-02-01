@@ -73,10 +73,11 @@ export const NewAlbum = () => {
         <div className="container mt-5">
             {store.authAdmin == false ? <Navigate to="/" /> : (
                 <>
-                    <h1 className="text-center mt-3">Create new Album</h1>
-                    <div className="col-md-6">
+                    <h1 className="text-center my-4 link-green">Create new Album</h1>
+                    <div className="col-auto">
                         <form onSubmit={sendData}>
                             <Container>
+                                <h3 className="text-white my-3">Search for an album on Spotify</h3>
                                 <InputGroup className="mb-3" size="lg">
                                     <FormControl placeholder="Search Album" type="input" onKeyDown={event => { if (event.key == "enter") { console.log("pressed enter") } }} onChange={(e) => setSearchInput(e.target.value)} />
                                     <Button onClick={search}>Search</Button>
@@ -89,21 +90,22 @@ export const NewAlbum = () => {
                                             <Card.Img src={albumImageURL} />
                                             <Card.Body>
                                                 <Card.Title>{albumName}</Card.Title>
-                                                <button onClick={() => { setName(albumName), setUrl(albumImageURL) }}>add</button>
+                                                <button className="btn btn-success btn-green" onClick={() => { setName(albumName), setUrl(albumImageURL) }}>add</button>
                                             </Card.Body>
                                         </Card>
                                     ))}
                                 </Row>
                             </Container>
+                            <h3 className="text-white my-3">Or introduce it manually</h3>
                             <div className="mb-3">
-                                <label htmlFor="nameInput" className="form-label">Album Name</label>
+                                <label htmlFor="nameInput" className="form-label text-white">Album Name</label>
                                 <input value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="nameInput" aria-describedby="emailHelp" required />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="urlInput" className="form-label">Image URL</label>
+                                <label htmlFor="urlInput" className="form-label text-white">Image URL</label>
                                 <input value={url} onChange={(e) => setUrl(e.target.value)} className="form-control" id="urlInput" required />
                             </div>
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="submit" className="btn text-white btn-green">Submit</button>
                         </form>
                     </div>
                 </>
