@@ -16,7 +16,7 @@ export const AdminLogin = () => {
     return (
         <>
             <div className="py-15 py-xl-20 d-flex flex-column container level-3 min-vh-100">
-                <div className="row align-items-center justify-content-center my-auto">
+                <div className="row align-items-center justify-content-center padding-index">
                     <div className="col-md-10 col-lg-8 col-xl-5">
                         {!store.authAdmin ? (
                             <div className="card">
