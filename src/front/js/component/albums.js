@@ -17,25 +17,25 @@ export const Albums = () => {
 
 	return (
 		<div className="container">
-			<h1 className="text-center my-3">Albums</h1>
+			<h1 className="display-2 my-5 link-green">Albums</h1>
 			{store.auth == false ? <Navigate to="/" /> :
 				<div>
-					<input className="form-control mb-3" type="text" placeholder="Search by album name" value={searchAlbum} onChange={(e) => setSearchAlbum(e.target.value)} />
+					<input className="form-control mb-2" type="text" placeholder="Search by album name" value={searchAlbum} onChange={(e) => setSearchAlbum(e.target.value)} />
 					<ul className="list-group">
 						{filteredAlbums.map((item) => {
 							return (
-								<li key={item.id} className="list-group-item">
+								<li key={item.id} className="list-group-item border-0 my-2">
 									<div className="row">
-										<div className="col-2 d-flex align-items-center justify-content-center">
+										<div className="col-sm-4 col-lg-2 d-flex align-self-center">
 											<img src={item.img_url} className="img-thumbnail rounded-circle" />
 										</div>
-										<div className="col-6">
-											<p className="fs-5 fw-bold">{item.name}</p>
+										<div className="col-sm-6 col-lg-8 d-flex align-self-center">
+											<p className="display-5 fw-bold">{item.name}</p>
 										</div>
-										<div className="col-4 d-flex align-items-center justify-content-evenly">
+										<div className="col-sm-2 co-lg-2 d-flex align-self-center justify-content-evenly">
 											{favorites.includes(item.name) ?
-												<button onClick={() => { actions.deleteFavoriteAlbum(item.id) }} className="btn btn-danger">Delete from Favorites</button> :
-												<button onClick={() => { actions.addFavoriteAlbum(item.id) }} className="btn btn-success">Add to Favorites</button>
+												<button onClick={() => { actions.deleteFavoriteAlbum(item.id) }} className="btn text-white btn-green">Delete Favorite</button> :
+												<button onClick={() => { actions.addFavoriteAlbum(item.id) }} className="btn text-white btn-pink">Add to Favorites</button>
 											}
 										</div>
 									</div>

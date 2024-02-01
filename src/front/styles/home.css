@@ -1,7 +1,92 @@
-/*
-    home.css: This website contains selectors only used in home.css
-
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+body {
+    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+    background-color: black;
+}
+.btn-pink {
+    border-radius: 30px;
+    background-color: #ff00c3;
+    border-color: #ff00c3;
+}
+.btn-pink:hover {
+    background-color: #db02a8;
+    border-color: #db02a8;
+}
+.link-pink {
+    color: #ff00c3;
+    text-decoration: none;
+}
+.link-pink:hover {
+    color: #db02a8;
+    text-decoration: none;
+}
+.btn-green {
+    border-radius: 30px;
+    background-color: #2ced01;
+    border-color: #2ced01;
+}
+.btn-green:hover {
+    background-color: #29d104;
+    border-color: #29d104;
+}
+.link-green {
+    color: #2ced01;
+    text-decoration: none;
+}
+.link-green:hover {
+    color: #29d104;
+    text-decoration: none;
+}
+.padding-index {
+    padding-top: 200px;
+    padding-bottom: 300px;
+}
+.fade-in-text {
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+.fade-in {
+    opacity: 1;
+}
+.logs-div {
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+.logo {
+    max-height: 80px;
+}
+.navbar-dark .navbar-toggler {
+    border-color: #ff00c3;
+}
+.navbar-toggler-icon, .offcanvas-title {
+    color: #ff00c3;
+}
+.offcanvas {
+    background-color: black;
+    border-color: #ff00c3;
+}
+a {
+    text-decoration: none;
+}
+.item-fav {
+    border-radius: 30px;
+}
+.rounded-circle {
+    border-color: #ff00c3;
+}
+.btn-index{
+    padding: 15px 40px;
+    font-weight: 500;
+}
+.card-index {
+    height: 800px;
+    border-radius: 30px;
+}
+.bg-pink {
+    background-color: #ff00c3;
+}
+.tx-shadow {
+    text-shadow: rgb(0, 0, 0) 1px 0 10px;
+}

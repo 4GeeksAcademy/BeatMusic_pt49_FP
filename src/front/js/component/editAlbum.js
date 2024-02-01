@@ -27,14 +27,14 @@ export const EditAlbum = (props) => {
     }
   }
   return (
-    <div className="container mt-5">
+    <div className="container mt-3">
       {store.authAdmin == false ? <Navigate to="/" /> :
         <>
-          <h1 className="text-center mt-3">Edit an Album</h1>
+          <h1 className="text-center my-4 link-green">Edit an Album</h1>
           <div className="col-md-6">
             <form onSubmit={sendData}>
               <div className="mb-3">
-                <label htmlFor="nameInput" className="form-label">
+                <label htmlFor="nameInput" className="form-label text-white">
                   Album Name
                 </label>
                 <input
@@ -47,7 +47,7 @@ export const EditAlbum = (props) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="urlInput" className="form-label">
+                <label htmlFor="urlInput" className="form-label text-white">
                   Image URL
                 </label>
                 <input
@@ -58,7 +58,7 @@ export const EditAlbum = (props) => {
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn text-white btn-green">
                 Submit
               </button>
             </form>
