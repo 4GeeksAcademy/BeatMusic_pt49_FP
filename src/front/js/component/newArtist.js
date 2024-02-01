@@ -81,7 +81,7 @@ export const NewArtist = () => {
                     <div className="col-auto">
                         <form onSubmit={sendData}>
                             <Container>
-                                <h3 className="text-white my-2">Search for an artist on Spotify</h3>
+                                <h3 className="text-white my-3">Search for an artist on Spotify</h3>
                                 <InputGroup className="mb-3" size="lg">
                                     <FormControl placeholder="Search Album" type="input" onKeyDown={event => { if (event.key == "enter") { console.log("pressed enter") } }} onChange={(e) => setSearchInput(e.target.value)} />
                                     <Button onClick={search}>Search</Button>
