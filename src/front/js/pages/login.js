@@ -59,7 +59,7 @@ export const Login = () => {
                                                 <label htmlFor="floatingPassword">Password</label>
                                             </div>
                                             <div className="d-grid mt-3">
-                                                <button type="submit" className="btn btn-lg btn-primary btn-pink">
+                                                <button type="submit" className="btn btn-lg text-white btn-pink">
                                                     Go!
                                                 </button>
                                             </div>
