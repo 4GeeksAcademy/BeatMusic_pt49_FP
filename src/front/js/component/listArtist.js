@@ -12,7 +12,7 @@ export const ListArtist = () => {
 				<>
 					<div className="d-flex justify-content-end my-3">
 						<Link to="/admin/newartist">
-							<button className="btn btn-success btn-green">Add new artist</button>
+							<button className="btn text-white btn-green">Add new artist</button>
 						</Link>
 					</div>
 					<ul className="list-group">
