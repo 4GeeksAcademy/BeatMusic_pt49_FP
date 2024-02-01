@@ -74,40 +74,42 @@ export const NewArtist = () => {
     }
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-3">
             {store.authAdmin == false ? <Navigate to="/" /> : (
                 <>
-                    <h1 className="text-center mt-3">Create new Artist</h1>
-                    <div className="col-md-6">
+                    <h1 className="text-center my-4 link-green">Create new Artist</h1>
+                    <div className="col-auto">
                         <form onSubmit={sendData}>
                             <Container>
+                                <h3 className="text-white my-2">Search for an artist on Spotify</h3>
                                 <InputGroup className="mb-3" size="lg">
                                     <FormControl placeholder="Search Album" type="input" onKeyDown={event => { if (event.key == "enter") { console.log("pressed enter") } }} onChange={(e) => setSearchInput(e.target.value)} />
                                     <Button onClick={search}>Search</Button>
                                 </InputGroup>
                             </Container>
                             <Container>
-                                <Row className="mx-2 row row-cols-4">
+                                <Row className="mx-2 row row-cols-6">
                                     {albums.map(({ artistName, artistImageURL }, i) => (
                                         <Card key={i}>
                                             <Card.Img src={artistImageURL} />
                                             <Card.Body>
                                                 <Card.Title>{artistName}</Card.Title>
-                                                <button onClick={() => { setName(artistName), setUrl(artistImageURL) }}>add</button>
+                                                <button className="btn btn-success btn-green" onClick={() => { setName(artistName), setUrl(artistImageURL) }}>Add</button>
                                             </Card.Body>
                                         </Card>
                                     ))}
                                 </Row>
                             </Container>
-                            <div className="mb-3">
-                                <label htmlFor="nameInput" className="form-label">Artist Name</label>
+                            <h3 className="text-white my-3">Or introduce it manually</h3>
+                            <div className="my-3">
+                                <label htmlFor="nameInput" className="form-label text-white">Artist Name</label>
                                 <input value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="nameInput" aria-describedby="emailHelp" />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="urlInput" className="form-label">Image URL</label>
+                                <label htmlFor="urlInput" className="form-label text-white">Image URL</label>
                                 <input value={url} onChange={(e) => setUrl(e.target.value)} className="form-control" id="urlInput" />
                             </div>
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="submit" className="btn text-white btn-green">Submit</button>
                         </form>
                     </div>
                 </>
