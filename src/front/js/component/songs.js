@@ -17,25 +17,25 @@ export const Songs = () => {
 
 	return (
 		<div className="container">
-			<h1 className="text-center my-3">Songs</h1>
+			<h1 className="display-2 my-5 link-green">Songs</h1>
 			{store.auth == false ? <Navigate to="/" /> :
 				<div>
-					<input className="form-control mb-3" type="text" placeholder="Search by song name" value={searchSong} onChange={(e) => setSearchSong(e.target.value)} />
+					<input className="form-control mb-2" type="text" placeholder="Search by song name" value={searchSong} onChange={(e) => setSearchSong(e.target.value)} />
 					<ul className="list-group">
 						{filteredSongs.map((item) => {
 							return (
-								<li key={item.id} className="list-group-item">
+								<li key={item.id} className="list-group-item border-0 my-2">
 									<div className="row">
-										<div className="col-6">
-											<p className="fs-5 fw-bold">{item.name}</p>
+										<div className="col-sm-6 col-lg-8 d-flex align-self-center">
+											<h2 className="fw-bold">{item.name}</h2>
 										</div>
-										<div className="col-2">
-											<p className="fs-5 fw-bold">{item.length}</p>
+										<div className="col-sm-4 col-lg-2 d-flex align-self-center">
+											<p className="fs-5 fw-bold m-0">{item.length}</p>
 										</div>
-										<div className="col-4 d-flex align-items-center justify-content-evenly">
+										<div className="col-sm-2 co-lg-2 d-flex align-self-center justify-content-evenly">
 											{favorites.includes(item.name) ?
-												<button onClick={()=> {actions.deleteFavoriteSong(item.id)}} className="btn btn-danger">Delete from Favorites</button> :
-												<button onClick={()=> {actions.addFavoriteSong(item.id)}} className="btn btn-success">Add to Favorites</button>
+												<button onClick={()=> {actions.deleteFavoriteSong(item.id)}} className="btn text-white btn-green">Delete Favorite</button> :
+												<button onClick={()=> {actions.addFavoriteSong(item.id)}} className="btn text-white btn-pink">Add to Favorites</button>
 											}
 										</div>
 									</div>

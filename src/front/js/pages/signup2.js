@@ -18,32 +18,36 @@ export const Signup2 = () => {
     }
 
     return (
-        <div className="container mt-5">
-            <h4 className="text-center">Choose your name and add your favorites. When you're done, press "Submit".</h4>
-            <br></br>
-            <form onSubmit={sendData} className="row row-cols-lg-auto g-3 align-items-center">
-                <div className="col-12">
-                    <label htmlFor="nameInput" className="form-label">Name:</label>
-                </div>
-                <div className="col-12">
-                    <input value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="nameInput" required />
-                </div>
-                <div className="col-12">
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </div>
-            </form>
-                
-            <div className="row">
-                <div className="col-md-4">
-                    <Artists />
-                </div>
-                <div className="col-md-4">
-                    <Albums />
-                </div>
-                <div className="col-md-4">
-                    <Songs />
+        <>
+            <div className="container mt-5">
+                <h1 className="text-center text-white">Choose your name and add your favorites.</h1>
+                <h1 className="text-center text-white">When you're done, press "Submit".</h1>
+                <br></br>
+                <form onSubmit={sendData} className="row justify-content-center">
+                    <div className="col-auto">
+                        <label htmlFor="nameInput" className="form-label text-white">Name:</label>
+                    </div>
+                    <div className="col-auto">
+                        <input value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="nameInput" required />
+                    </div>
+                    <div className="col-auto">
+                        <button type="submit" className="btn btn-primary btn-pink">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div className="container-fluid mt-5"> 
+                <div className="row">
+                    <div className="col-sm-12 col-lg-6">
+                        <Artists />
+                    </div>
+                    <div className="col-sm-12 col-lg-6">
+                        <Albums />
+                    </div>
+                    <div className="col-sm-12 col-lg-6">
+                        <Songs />
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };

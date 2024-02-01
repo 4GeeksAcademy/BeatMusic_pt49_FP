@@ -18,6 +18,7 @@ export const Private = () => {
     const artistMatch = actions.matchPercentage(userArtists, friendArtists)
     const albumMatch = actions.matchPercentage(userAlbums, friendAlbums)
     const songMatch = actions.matchPercentage(userSongs, friendSongs)
+    const [currentCounter, setCurrentCounter] = useState(0);
 
     useEffect(() => {
         if (store.favoriteArtists) {
@@ -73,110 +74,153 @@ export const Private = () => {
         }
     }, [params.user_id]);
 
+    useEffect(() => {
+        setCurrentCounter(0);
+        const totalMatchPercentage = actions.totalMatch(artistMatch, albumMatch, songMatch);
+        const stepSize = totalMatchPercentage / 100;
+        const interval = setInterval(() => {
+            setCurrentCounter(prevCounter => {
+                if (prevCounter + stepSize >= totalMatchPercentage) {
+                    clearInterval(interval);
+                    return totalMatchPercentage;
+                }
+                return prevCounter + stepSize;
+            });
+        }, 20);
+        return () => clearInterval(interval);
+    }, [artistMatch, albumMatch, songMatch]);
+
     return (
-        <div className="text-center mt-5">
+        <div className="container mt-5">
             {store.auth == false ? <Navigate to="/" /> :
                 <>
-                    <h1>{store.userId === parseInt(params.user_id) ? "Private" : store.profileName }</h1>
-                    <p>Welcome to your private area.</p>
-                    {store.userId === parseInt(params.user_id) ? null :
-                        <p>Total Match: {actions.totalMatch(artistMatch, albumMatch, songMatch)}%</p>
-                    }
-                    {store.userId === parseInt(params.user_id)
-                        ? null
-                        : friends.includes(parseInt(params.user_id))
-                        ? <button onClick={()=>{actions.deleteFriend(parseInt(params.user_id))}} className="btn btn-danger my-1">Unfollow</button>
-                        : <button onClick={()=>{actions.addFriend(parseInt(params.user_id))}} className="btn btn-success my-1">Follow</button>
-                    } 
-                    <div className="row">
-                        <div className="col-3 border border-primary rounded">
-                            <h2>Friends</h2>
+                    <div className="row my-5">
+                        <div className="col-sm-6 col-lg-10">
+                            <h1 className="display-2 link-pink">{store.userId === parseInt(params.user_id) ? "Your Wall" : store.profileName }</h1>
+                        </div>
+                        <div className="col-sm-6 col-lg-2 link-pink">
+                            {store.userId === parseInt(params.user_id) ? null :
+                                <h1 className="display-2 link-pink">{Math.round(currentCounter)}%</h1>
+                            }
+                        </div>
+                        <div className="col-sm-6 col-lg-2 link-pink">
+                            {store.userId === parseInt(params.user_id)
+                                ? null
+                                : friends.includes(parseInt(params.user_id))
+                                ? <button onClick={()=>{actions.deleteFriend(parseInt(params.user_id))}} className="btn text-white btn-green my-3">Unfollow</button>
+                                : <button onClick={()=>{actions.addFriend(parseInt(params.user_id))}} className="btn text-white btn-pink my-3">Follow</button>
+                            }
+                        </div>
+                    </div>
+                    <div className="row mt-3">
+                        <div className="col-sm-12 col-lg-2 mb-2 rounded bg-white">
+                            <h2 className="link-pink pt-2">Friends</h2>
                             {store.friends.length == 0 ? <li><p>No Friends yet.</p></li> : store.friends.map((item) => {
                                 return (
-                                    <li key={item.following_user_id} className="list-group-item">
+                                    <li key={item.following_user_id} className="list-group-item border-0">
                                         <div className="row">
-                                            <div className="col-10">
-                                                <p className="fs-5 fw-bold">{item.name}</p>
-                                            </div>
-                                            <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                <button onClick={()=>{navigate("/private/" + item.following_user_id)}} className="btn btn-primary mx-1">See Profile</button>
+                                            <div className="col-12 p-0">
+                                                <Link to={"/private/" + item.following_user_id}>
+                                                    <span className="fs-5 fw-bold text-black">{item.name}</span>
+                                                </Link>
                                             </div>
                                         </div>
                                     </li>
                                 );
                             })}
                         </div>
-                        <div className="col-3 border border-primary rounded">
-                            <h2>Favorite Artists</h2>
-                            {store.userId === parseInt(params.user_id) ? null :
-                                <p>Match: {artistMatch.inclu}%</p>
-                            }
-                            <ul className="list-group">
-                                {store.favoriteArtists.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteArtists.map((item) => {
-                                    return (
-                                        <li key={item.artist_id} className="list-group-item">
-                                            <div className="row">
-                                                <div className="col-10">
-                                                    <p className="fs-5 fw-bold">{item.artist}</p>
-                                                </div>
-                                                {store.userId === parseInt(params.user_id) ?
-                                                    <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                        <button onClick={()=> {actions.deleteFavoriteArtist(item.artist_id)}} className="btn btn-danger">Delete from Favorites</button>
+                        <div className="col-lg-1 bg-black rounded"></div>
+                        <div className="col-sm-12 col-lg-9 bg-black rounded">
+                            <div className="row">
+                                <div className="col-sm-10 d-flex align-self-center">
+                                    <h2 className="link-green pt-2">Favorite Artists</h2>
+                                </div>
+                                <div className="col-sm-2 d-flex align-self-center">
+                                    {store.userId === parseInt(params.user_id) ? null :
+                                        <h5 className="link-green m-0">Match: {artistMatch}%</h5>
+                                    }
+                                </div>
+                            </div>
+                            <div className="row">
+                                    {store.favoriteArtists.length == 0 ? <p className="text-white mx-2">No Favorites yet.</p> : store.favoriteArtists.map((item) => {
+                                        return (
+                                            <div key={item.artist_id} className="col-auto">
+                                                <div className="bg-white p-2 item-fav me-3 my-3">
+                                                    <div className="row">
+                                                        <div className="col-auto d-flex align-self-center">
+                                                            <p className="fs-5 fw-bold m-0">{item.artist}</p>
+                                                        </div>
+                                                        {store.userId === parseInt(params.user_id) ?
+                                                            <div className="col-auto d-flex align-self-center">
+                                                                <button onClick={()=> {actions.deleteFavoriteArtist(item.artist_id)}} className="btn text-white btn-green">Delete</button>
+                                                            </div>
+                                                        : null }
                                                     </div>
-                                                : null }
+                                                </div>
                                             </div>
-                                        </li>
+                                        );
+                                    })}
+                            </div>
+                            <div className="row">
+                                <div className="col-sm-10 d-flex align-self-center">
+                                    <h2 className="link-green pt-2">Favorite Albums</h2>
+                                </div>
+                                <div className="col-sm-2 d-flex align-self-center">
+                                    {store.userId === parseInt(params.user_id) ? null :
+                                        <h5 className="link-green m-0">Match: {albumMatch}%</h5>
+                                    }
+                                </div>
+                            </div>
+                            <div className="row">
+                                {store.favoriteAlbums.length == 0 ? <p className="text-white mx-2">No Favorites yet.</p> : store.favoriteAlbums.map((item) => {
+                                    return (
+                                        <div key={item.album_id} className="col-auto">
+                                            <div className="bg-white p-2 item-fav me-3 my-3">
+                                                <div className="row">
+                                                    <div className="col-auto d-flex align-self-center">
+                                                        <p className="fs-5 fw-bold m-0">{item.album}</p>
+                                                    </div>
+                                                    {store.userId === parseInt(params.user_id) ?
+                                                        <div className="col-auto d-flex align-self-center">
+                                                            <button onClick={()=> {actions.deleteFavoriteAlbum(item.album_id)}} className="btn text-white btn-green">Delete</button>
+                                                        </div>
+                                                    : null }
+                                                </div>
+                                            </div>
+                                        </div>
                                     );
                                 })}
-                            </ul>
-                        </div>
-                        <div className="col-3 border border-primary rounded">
-                            <h2>Favorite Albums</h2>
-                            {store.userId === parseInt(params.user_id) ? null :
-                                <p>Match: {albumMatch}%</p>
-                            }
-                            <ul className="list-group">
-                                {store.favoriteAlbums.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteAlbums.map((item) => {
+                            </div>
+                            <div className="row">
+                                <div className="col-sm-10 d-flex align-self-center">
+                                    <h2 className="link-green pt-2">Favorite Songs</h2>
+                                </div>
+                                <div className="col-sm-2 d-flex align-self-center">
+                                    {store.userId === parseInt(params.user_id) ? null :
+                                        <h5 className="link-green m-0">Match: {songMatch}%</h5>
+                                    }
+                                </div>
+                            </div>
+                            <div className="row">
+                                {store.favoriteSongs.length == 0 ? <p className="text-white mx-2">No Favorites yet.</p> : store.favoriteSongs.map((item) => {
                                     return (
-                                        <li key={item.album_id} className="list-group-item">
-                                            <div className="row">
-                                                <div className="col-10">
-                                                    <p className="fs-5 fw-bold">{item.album}</p>
-                                                </div>
-                                                {store.userId === parseInt(params.user_id) ?
-                                                    <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                        <button onClick={()=> {actions.deleteFavoriteAlbum(item.album_id)}} className="btn btn-danger">Delete from Favorites</button>
+                                        <div key={item.song_id} className="col-auto">
+                                            <div className="bg-white p-2 item-fav me-3 my-3">
+                                                <div className="row">
+                                                    <div className="col-auto d-flex align-self-center">
+                                                        <p className="fs-5 fw-bold m-0">{item.song}</p>
                                                     </div>
-                                                : null }
+                                                    {store.userId === parseInt(params.user_id) ?
+                                                        <div className="col-auto d-flex align-self-center">
+                                                            <button onClick={()=> {actions.deleteFavoriteSong(item.song_id)}} className="btn text-white btn-green">Delete</button>
+                                                        </div>
+                                                    : null }
+                                                </div>
                                             </div>
-                                        </li>
+                                        </div>
                                     );
                                 })}
-                            </ul>
-                        </div>
-                        <div className="col-3 border border-primary rounded">
-                            <h2>Favorite Songs</h2>
-                            {store.userId === parseInt(params.user_id) ? null :
-                                <p>Match: {songMatch}%</p>
-                            }
-                            <ul className="list-group">
-                                {store.favoriteSongs.length == 0 ? <li><p>No Favorites yet.</p></li> : store.favoriteSongs.map((item) => {
-                                    return (
-                                        <li key={item.song_id} className="list-group-item">
-                                            <div className="row">
-                                                <div className="col-10">
-                                                    <p className="fs-5 fw-bold">{item.song}</p>
-                                                </div>
-                                                {store.userId === parseInt(params.user_id) ?
-                                                    <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                        <button onClick={()=> {actions.deleteFavoriteSong(item.song_id)}} className="btn btn-danger">Delete from Favorites</button>
-                                                    </div>
-                                                : null }
-                                            </div>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
+                            </div>
                         </div>
                     </div>
                 </>
