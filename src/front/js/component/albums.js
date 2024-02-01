@@ -34,8 +34,8 @@ export const Albums = () => {
 										</div>
 										<div className="col-sm-2 co-lg-2 d-flex align-self-center justify-content-evenly">
 											{favorites.includes(item.name) ?
-												<button onClick={() => { actions.deleteFavoriteAlbum(item.id) }} className="btn btn-danger btn-green">Delete Favorite</button> :
-												<button onClick={() => { actions.addFavoriteAlbum(item.id) }} className="btn btn-success btn-pink">Add to Favorites</button>
+												<button onClick={() => { actions.deleteFavoriteAlbum(item.id) }} className="btn text-white btn-green">Delete Favorite</button> :
+												<button onClick={() => { actions.addFavoriteAlbum(item.id) }} className="btn text-white btn-pink">Add to Favorites</button>
 											}
 										</div>
 									</div>
