@@ -79,10 +79,11 @@ export const NewSong = () => {
     <div className="container mt-5">
       {store.authAdmin == false ? <Navigate to="/" /> : (
         <>
-          <h1 className="text-center mt-3">Create new Song</h1>
-          <div className="col-md-6">
+          <h1 className="text-center my-4 link-green">Create new Song</h1>
+          <div className="col-auto">
             <form onSubmit={sendData}>
               <Container>
+                <h3 className="text-white my-3">Search for a song on Spotify</h3>
                 <InputGroup className="mb-3" size="lg">
                   <FormControl placeholder="Search Song" type="input" onKeyDown={event => { if (event.key == "enter") { console.log("pressed enter") } }} onChange={(e) => setSearchInput(e.target.value)} />
                   <Button onClick={search}>Search</Button>
@@ -95,21 +96,22 @@ export const NewSong = () => {
                       <Card.Title>Length: {trackLength}</Card.Title>
                       <Card.Body>
                         <Card.Title>{trackName}</Card.Title>
-                        <button onClick={() => { setName(trackName), setUrl(trackLength) }}>add</button>
+                        <button className="btn btn-success btn-green" onClick={() => { setName(trackName), setUrl(trackLength) }}>add</button>
                       </Card.Body>
                     </Card>
                   ))}
                 </Row>
               </Container>
+              <h3 className="text-white my-3">Or introduce it manually</h3>
               <div className="mb-3">
-                <label htmlFor="nameInput" className="form-label">Song Name</label>
+                <label htmlFor="nameInput" className="form-label text-white">Song Name</label>
                 <input value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="nameInput" aria-describedby="emailHelp" required />
               </div>
               <div className="mb-3">
-                <label htmlFor="urlInput" className="form-label">Length</label>
+                <label htmlFor="urlInput" className="form-label text-white">Length</label>
                 <input value={url} onChange={(e) => setUrl(e.target.value)} className="form-control" id="urlInput" required />
               </div>
-              <button type="submit" className="btn btn-primary">Submit</button>
+              <button type="submit" className="btn text-white btn-green">Submit</button>
             </form>
           </div>
         </>
