@@ -14,7 +14,7 @@ import os
 import re
 import base64
 import openai
-openai.api_key = "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"
+openai.api_key = "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"
 SPOTIFY_CLIENT_ID = os.environ.get('3859789f63b8461c86e0f453ebbecfd1')
 SPOTIFY_CLIENT_SECRET = os.environ.get('21d7f7f60938433eac36f6a0e5ff0de9')
 api = Blueprint('api', __name__)

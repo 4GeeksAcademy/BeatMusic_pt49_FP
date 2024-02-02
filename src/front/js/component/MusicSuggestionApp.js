@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import "../../styles/home.css";
 
-const MusicSuggestionApp = () => {
+export const MusicSuggestionApp = () => {
   const { actions } = useContext(Context);
   const [suggestions, setSuggestions] = useState(new Set()); // Usando un Set para sugerencias únicas
   const [selectedGenre, setSelectedGenre] = useState('');
@@ -61,30 +62,30 @@ const MusicSuggestionApp = () => {
   };
 
   return (
-    <div>
-      <h1>Sugerencias de Música</h1>
-      <label htmlFor="genreSelector">Selecciona un género de música:</label>
-      <select id="genreSelector" onChange={(e) => setSelectedGenre(e.target.value)}>
-        <option value="">-- Selecciona --</option>
+    <div className="container mb-5">
+      <h1 className="display-2 my-5 link-green">Recommendations</h1>
+      <label className="form-label fs-2 text-white me-5" htmlFor="genreSelector">Select your genre.</label>
+      <select className="dropdown-genre me-5" id="genreSelector" onChange={(e) => setSelectedGenre(e.target.value)}>
+        <option value="">-- Genres --</option>
         <option value="metal">Metal</option>
         <option value="house">House</option>
         <option value="pop">Pop</option>
         <option value="rap">Rap</option>
-        <option value="clasica">Clásica</option>
+        <option value="clasica">Clasic</option>
         <option value="jazz">Jazz</option>
         <option value="rock and roll">Rock and Roll</option>
         <option value="country">Country</option>
         <option value="flamenco">Flamenco</option>
       </select>
 
-      <button onClick={handleGetGPT3Suggestion} disabled={buttonDisabled}>
-        Obtener Sugerencia
+      <button className="btn text-white btn-pink" onClick={handleGetGPT3Suggestion} disabled={buttonDisabled}>
+        Suggest a song
       </button>
 
       {/* Mapear y mostrar las sugerencias */}
       {[...suggestions].map((suggestion, index) => (
-        <div key={index}>
-          <strong>Sugerencia {index + 1}:</strong> {suggestion}
+        <div className="mt-3 text-white " key={index}>
+          <strong className="text-white">Suggestion {index + 1}:</strong> {suggestion}
         </div>
       ))}
     </div>
