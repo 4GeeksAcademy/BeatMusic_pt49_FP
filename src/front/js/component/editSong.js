@@ -12,9 +12,11 @@ export const EditSong = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        actions.getSingleSong(params.song_id)
-        setName(store.singleSong.name);
-        setLength(store.singleSong.length);
+        actions.getSingleSong(params.song_id);
+    }, []);
+    useEffect(() => {
+        setName(store.singleSong.name || "");
+        setLength(store.singleSong.length || "");
     }, [store.singleSong])
 
     function sendData(e) {

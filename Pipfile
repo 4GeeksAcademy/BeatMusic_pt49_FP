@@ -19,6 +19,8 @@ cloudinary = "*"
 flask-admin = "*"
 typing-extensions = "*"
 flask-jwt-extended = "*"
+openai = "==0.27.0"
+spotipy = "*"
 
 [requires]
 python_version = "3.10"

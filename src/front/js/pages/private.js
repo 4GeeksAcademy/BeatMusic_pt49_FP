@@ -21,18 +21,35 @@ export const Private = () => {
     const user1Id = 2;
     const user2Id = 3;
 
+    const [songRecommendations, setSongRecommendations] = useState([]);
+
+    const getSongRecommendations = async () => {
+        try {
+            const result = await actions.getSongRecommendations(userArtists);
+            if (result && result.songs) {
+                setSongRecommendations(result.songs);
+            } else {
+                console.error('Respuesta inesperada del servidor para las recomendaciones de canciones:', result);
+            }
+        } catch (error) {
+            console.error('Error al obtener recomendaciones de canciones', error);
+        }
+    };
+    useEffect(() => {
+        getSongRecommendations();
+    }, []);
     useEffect(() => {
         if (store.favoriteArtists) {
             actions.getFavoriteArtists(params.user_id);
         }
-      }, [store.favoriteArtists]);
+    }, [store.favoriteArtists]);
 
     useEffect(() => {
         if (store.favoriteUserArtists) {
             actions.getFavoriteUserArtists();
         }
     }, [store.favoriteUserArtists]);
-    
+
     useEffect(() => {
         if (store.favoriteAlbums) {
             actions.getFavoriteAlbums(params.user_id);
@@ -70,28 +87,28 @@ export const Private = () => {
                         <div className="col-3 border border-primary rounded">
                             <h2>Friends</h2>
 
-                                <ul className="list-group">
-                                    <li key={user1Id} className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-10">
-                                                <p className="fs-5 fw-bold">Miguel</p>
-                                            </div>
-                                            <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                <button onClick={()=>{navigate("/private/" + user1Id)}} className="btn btn-primary mx-1">See Profile</button>
-                                            </div>
+                            <ul className="list-group">
+                                <li key={user1Id} className="list-group-item">
+                                    <div className="row">
+                                        <div className="col-10">
+                                            <p className="fs-5 fw-bold">Miguel</p>
                                         </div>
-                                    </li>
-                                    <li key={user2Id} className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-10">
-                                                <p className="fs-5 fw-bold">Diego</p>
-                                            </div>
-                                            <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                <button onClick={()=>{navigate("/private/" + user2Id)}} className="btn btn-primary mx-1">See Profile</button>
-                                            </div>
+                                        <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                            <button onClick={() => { navigate("/private/" + user1Id) }} className="btn btn-primary mx-1">See Profile</button>
                                         </div>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </li>
+                                <li key={user2Id} className="list-group-item">
+                                    <div className="row">
+                                        <div className="col-10">
+                                            <p className="fs-5 fw-bold">Diego</p>
+                                        </div>
+                                        <div className="col-2 d-flex align-items-center justify-content-evenly">
+                                            <button onClick={() => { navigate("/private/" + user2Id) }} className="btn btn-primary mx-1">See Profile</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
 
                         </div>
                         <div className="col-3 border border-primary rounded">
@@ -109,15 +126,32 @@ export const Private = () => {
                                                 </div>
                                                 {store.userId === parseInt(params.user_id) ?
                                                     <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                        <button onClick={()=> {actions.deleteFavoriteArtist(item.artist_id)}} className="btn btn-danger">Delete from Favorites</button>
+                                                        <button onClick={() => { actions.deleteFavoriteArtist(item.artist_id) }} className="btn btn-danger">Delete from Favorites</button>
                                                     </div>
-                                                : null }
+                                                    : null}
                                             </div>
                                         </li>
                                     );
                                 })}
                             </ul>
                         </div>
+                        <div className="col-3 border border-primary rounded">
+                            <h2>Song Recommendations</h2>
+                            <ul className="list-group">
+                                {songRecommendations.length === 0 ? <li><p>No recommendations yet.</p></li> : songRecommendations.map((item) => {
+                                    return (
+                                        <li key={item.song_id} className="list-group-item">
+                                            <div className="row">
+                                                <div className="col-10">
+                                                    <p className="fs-5 fw-bold">{item.song}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+
                         <div className="col-3 border border-primary rounded">
                             <h2>Favorite Albums</h2>
                             {store.userId === parseInt(params.user_id) ? null :
@@ -133,9 +167,9 @@ export const Private = () => {
                                                 </div>
                                                 {store.userId === parseInt(params.user_id) ?
                                                     <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                        <button onClick={()=> {actions.deleteFavoriteAlbum(item.album_id)}} className="btn btn-danger">Delete from Favorites</button>
+                                                        <button onClick={() => { actions.deleteFavoriteAlbum(item.album_id) }} className="btn btn-danger">Delete from Favorites</button>
                                                     </div>
-                                                : null }
+                                                    : null}
                                             </div>
                                         </li>
                                     );
@@ -157,9 +191,9 @@ export const Private = () => {
                                                 </div>
                                                 {store.userId === parseInt(params.user_id) ?
                                                     <div className="col-2 d-flex align-items-center justify-content-evenly">
-                                                        <button onClick={()=> {actions.deleteFavoriteSong(item.song_id)}} className="btn btn-danger">Delete from Favorites</button>
+                                                        <button onClick={() => { actions.deleteFavoriteSong(item.song_id) }} className="btn btn-danger">Delete from Favorites</button>
                                                     </div>
-                                                : null }
+                                                    : null}
                                             </div>
                                         </li>
                                     );
@@ -174,5 +208,5 @@ export const Private = () => {
 };
 
 Private.propTypes = {
-	match: PropTypes.object
+    match: PropTypes.object
 };

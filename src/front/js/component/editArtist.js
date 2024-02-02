@@ -12,9 +12,12 @@ export const EditArtist = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        actions.getSingleArtist(params.artist_id)
-        setName(store.singleArtist.name);
-        setUrl(store.singleArtist.img_url);
+        actions.getSingleArtist(params.artist_id);
+      }, []);
+
+    useEffect(() => {
+        setName(store.singleArtist.name || "");
+        setUrl(store.singleArtist.img_url || "");
     }, [store.singleArtist])
 
     function sendData(e) {

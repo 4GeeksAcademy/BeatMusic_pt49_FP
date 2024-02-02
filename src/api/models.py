@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 
+
+
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -52,7 +54,7 @@ class Album(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "img_url": self.img_url
+            "img_url": self.img_url,
         }
 
 class Artist(db.Model):
@@ -60,7 +62,6 @@ class Artist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     img_url = db.Column(db.String(120), nullable=False)
-
     def __repr__(self):
         return '<Artist %r>' % self.name
 
@@ -68,8 +69,10 @@ class Artist(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "img_url": self.img_url
+            "img_url": self.img_url,
         }
+    
+
     
 class Song(db.Model):
     __tablename__ = 'song'
@@ -137,3 +140,4 @@ class FavoriteSong(db.Model):
             "song_id": self.song.id,
             "song": self.song.name
         } 
+

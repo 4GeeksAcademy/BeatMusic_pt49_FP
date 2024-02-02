@@ -1,7 +1,8 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+import requests
+from flask import Flask, make_response, request, jsonify, url_for, Blueprint, render_template
 from api.models import db, User, Album, Artist, Song, FavoriteArtist, FavoriteAlbum, FavoriteSong, AdminUser
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
@@ -9,7 +10,13 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
-
+import os
+import re
+import base64
+import openai
+openai.api_key = "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"
+SPOTIFY_CLIENT_ID = os.environ.get('3859789f63b8461c86e0f453ebbecfd1')
+SPOTIFY_CLIENT_SECRET = os.environ.get('21d7f7f60938433eac36f6a0e5ff0de9')
 api = Blueprint('api', __name__)
 app = Flask(__name__)
 
@@ -349,3 +356,114 @@ def delete_favorite_song(user_id, song_id):
     }
 
     return jsonify(response_body), 200
+
+
+
+@api.route('/generate_recommendation', methods=['POST'])
+def generate_recommendation():
+    spotify_token = get_spotify_access_token()
+    try:
+        print("Entró a generate_recommendation")
+        prompt = request.json['prompt']
+        print(f"Prompt recibido: {prompt}")
+
+        # Obtener recomendación de canción de ChatGPT
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        print("Respuesta de OpenAI GPT-3:", response)
+
+        # Verificar si hay errores en la respuesta
+        if 'choices' in response and response['choices']:
+            # Extraer contenido del mensaje generado por GPT-3
+            gpt3_message_content = response['choices'][0]['message']['content']
+            
+            # Obtener una lista de artistas desde el contenido
+            artists_list = re.findall(r'\d+\.\s+([^\n]+)', gpt3_message_content)
+
+            # Podrías usar la primera artista de la lista para obtener información de Spotify
+            if artists_list:
+                artist_name = artists_list[0]
+                artist_info = get_spotify_artist_info(artist_name)
+                return jsonify({'artist_info': artist_info})
+            else:
+                return jsonify({'error': 'No se pudo extraer información de los artistas'}), 500
+        else:
+            return jsonify({'error': 'Respuesta de OpenAI incompleta o sin opciones'}), 500
+    except Exception as e:
+        print(f"Error en generate_recommendation: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+def get_spotify_artist_info(artist_name):
+    # Aquí deberías implementar la lógica para obtener información del artista desde la API de Spotify
+    # Utiliza el nombre del artista para buscar su ID u otra información relevante
+    # Devuelve un diccionario con la información del artista (o maneja el error si no se encuentra)
+    # Puedes usar la misma lógica que usaste para obtener información de la pista
+    
+    # Ejemplo ficticio
+    artist_info = {
+        'name': artist_name,
+        'albums': ['Album 1', 'Album 2'],
+        'popularity': 80,
+        # Agrega más información según tus necesidades
+    }
+
+    return artist_info
+
+def get_spotify_access_token():
+   
+
+    try:
+        token_url = 'https://accounts.spotify.com/api/token'
+        token_data = {'grant_type': 'client_credentials'}
+        token_headers = {
+            'Authorization': 'Basic ' + base64.b64encode(f'{"3859789f63b8461c86e0f453ebbecfd1"}:{"21d7f7f60938433eac36f6a0e5ff0de9"}'.encode()).decode()
+        }
+
+        token_response = requests.post(token_url, headers=token_headers, data=token_data)
+        token_response.raise_for_status()
+        
+        return token_response.json().get('access_token')
+    except requests.exceptions.HTTPError as e:
+        print(f'Error al obtener el token de acceso de Spotify. Detalles del error: {e.response.text}')
+        return None
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+def get_spotify_track_title(track_id):
+    # Credenciales de Spotify
+    client_id = '3859789f63b8461c86e0f453ebbecfd1'
+    client_secret = '21d7f7f60938433eac36f6a0e5ff0de9'
+
+    # Obtener token de acceso de Spotify
+    token_url = 'https://accounts.spotify.com/api/token'
+    token_data = {'grant_type': 'client_credentials'}
+    token_headers = {'Authorization': f'Basic {base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()}'}
+    
+    try:
+        token_response = requests.post(token_url, headers=token_headers, data=token_data)
+        token_response.raise_for_status()
+        token = token_response.json().get('access_token')
+        print(f'Token de acceso de Spotify: {token}')  # Imprimir el token para verificar
+        # Consultar la información de la pista utilizando el token de acceso
+        track_url = f'https://api.spotify.com/v1/tracks/{track_id}'
+        headers = {'Authorization': f'Bearer {token}'}
+        
+        try:
+            track_response = requests.get(track_url, headers=headers)
+            track_response.raise_for_status()
+
+            track_data = track_response.json()
+            track_title = track_data.get('name', 'Título no encontrado')
+            return track_title
+        except requests.exceptions.HTTPError as track_error:
+            print(f'Error al obtener información de la pista: {track_error}')
+            return 'Error al obtener información de la pista'
+    except requests.exceptions.HTTPError as token_error:
+        print(f'Error al obtener el token de acceso de Spotify: {token_error}')
+        return 'Error al obtener el token de acceso de Spotify'

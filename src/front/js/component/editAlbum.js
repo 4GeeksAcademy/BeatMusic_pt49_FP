@@ -13,8 +13,10 @@ export const EditAlbum = (props) => {
 
   useEffect(() => {
     actions.getSingleAlbum(params.album_id);
-    setName(store.singleAlbum.name);
-    setUrl(store.singleAlbum.img_url);
+  }, []);
+  useEffect(() => {
+    setName(store.singleAlbum.name || "");
+    setUrl(store.singleAlbum.img_url || "");
   }, [store.singleAlbum]);
 
   function sendData(e) {

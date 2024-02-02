@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-
+import MusicSuggestionApp from "./MusicSuggestionApp";
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
-
 	return (
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
+				<MusicSuggestionApp />
 				<Link to="/">
 					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link>
@@ -20,7 +20,7 @@ export const Navbar = () => {
 					{store.auth == false ? null :
 						<div className="btn-group mx-1">
 							<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Lists
+								Lists
 							</button>
 							<ul className="dropdown-menu dropdown-menu-end">
 								<li>
@@ -54,7 +54,7 @@ export const Navbar = () => {
 					{store.authAdmin == false ? null :
 						<div className="btn-group mx-1">
 							<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Admin
+								Admin
 							</button>
 							<ul className="dropdown-menu dropdown-menu-end">
 								<li>
@@ -62,7 +62,7 @@ export const Navbar = () => {
 										<button className="dropdown-item">Admin Lists</button>
 									</Link>
 								</li>
-								<li><hr className="dropdown-divider"/></li>
+								<li><hr className="dropdown-divider" /></li>
 								<li>
 									<button onClick={actions.adminLogout} className="btn btn-danger mx-3">Log Out</button>
 								</li>
@@ -72,7 +72,7 @@ export const Navbar = () => {
 					{store.auth == false ? null :
 						<div className="btn-group mx-1">
 							<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							{store.username}
+								{store.username}
 							</button>
 							<ul className="dropdown-menu dropdown-menu-end">
 								<li>
@@ -80,7 +80,7 @@ export const Navbar = () => {
 										<button className="dropdown-item">Account Settings</button>
 									</Link>
 								</li>
-								<li><hr className="dropdown-divider"/></li>
+								<li><hr className="dropdown-divider" /></li>
 								<li>
 									<button onClick={actions.logout} className="btn btn-danger mx-3">Log Out</button>
 								</li>

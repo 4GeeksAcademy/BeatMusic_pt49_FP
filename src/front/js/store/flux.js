@@ -30,6 +30,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			favoriteUserSongs: [],
 			userId: 0,
 			username: "",
+			suggestion: '',
+			prompt: "",
+			spotifyAccessToken: '',
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -37,11 +40,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			
+
 			createAlbum: (name, url) => {
 				const requestOptions = {
 					method: 'POST',
 					headers: { "Content-Type": "application/json" },
+					mode: 'cors',
 					body: JSON.stringify(
 						{
 							"name": name,
@@ -61,6 +65,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const requestOptions = {
 					method: 'POST',
 					headers: { "Content-Type": "application/json" },
+					mode: 'cors',
 					body: JSON.stringify(
 						{
 							"name": name,
@@ -79,6 +84,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const requestOptions = {
 					method: 'POST',
 					headers: { "Content-Type": "application/json" },
+					mode: 'cors',
 					body: JSON.stringify(
 						{
 							"name": name,
@@ -97,6 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'POST',
+					mode: 'cors',
 					body: "",
 					redirect: 'follow'
 				};
@@ -111,6 +118,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'POST',
+					mode: 'cors',
 					body: "",
 					redirect: 'follow'
 				};
@@ -125,6 +133,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'POST',
+					mode: 'cors',
 					body: "",
 					redirect: 'follow'
 				};
@@ -138,6 +147,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getAlbum: () => {
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -150,6 +160,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getArtist: () => {
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -162,6 +173,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getFavoriteArtists: (id) => {
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -175,6 +187,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -187,6 +200,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getFavoriteAlbums: (id) => {
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -200,6 +214,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -212,6 +227,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getFavoriteSongs: (id) => {
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -225,6 +241,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -237,6 +254,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getSong: () => {
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -249,6 +267,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getSingleAlbum: (id) => {
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -261,6 +280,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getSingleArtist: (id) => {
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -273,6 +293,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getSingleSong: (id) => {
 				var requestOptions = {
 					method: 'GET',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -285,6 +306,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			deleteAlbum: (id) => {
 				var requestOptions = {
 					method: 'DELETE',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -298,6 +320,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			deleteArtist: (id) => {
 				var requestOptions = {
 					method: 'DELETE',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -312,6 +335,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'DELETE',
+					mode: 'cors',
 					body: "",
 					redirect: 'follow'
 				};
@@ -327,6 +351,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'DELETE',
+					mode: 'cors',
 					body: "",
 					redirect: 'follow'
 				};
@@ -342,6 +367,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'DELETE',
+					mode: 'cors',
 					body: "",
 					redirect: 'follow'
 				};
@@ -356,6 +382,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			deleteSong: (id) => {
 				var requestOptions = {
 					method: 'DELETE',
+					mode: 'cors',
 					redirect: 'follow'
 				};
 
@@ -369,6 +396,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			updateAlbum: (id, name, url) => {
 				var requestOptions = {
 					method: 'PUT',
+					mode: 'cors',
 					redirect: 'follow',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -387,6 +415,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			updateArtist: (id, name, url) => {
 				var requestOptions = {
 					method: 'PUT',
+					mode: 'cors',
 					redirect: 'follow',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -406,6 +435,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			updateSong: (id, name, length) => {
 				var requestOptions = {
 					method: 'PUT',
+					mode: 'cors',
 					redirect: 'follow',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -437,6 +467,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			login: (email, password) => {
 				const requestOptions = {
 					method: 'POST',
+					mode: 'cors',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						"email": email,
@@ -459,10 +490,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			adminLogin: (email, password) => {
 				const requestOptions = {
 					method: 'POST',
+					mode: 'cors',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-							"email": email,
-							"password": password,
+						"email": email,
+						"password": password,
 					})
 				};
 
@@ -480,13 +512,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			signup: (email, password) => {
 				const requestOptions = {
 					method: 'POST',
+					mode: 'cors',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						"email": email,
 						"password": password
 					})
 				};
-			
+
 				fetch(process.env.BACKEND_URL + "/api/users", requestOptions)
 					.then(response => {
 						if (response.status === 201) {
@@ -503,6 +536,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'PUT',
+					mode: 'cors',
 					redirect: 'follow',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -521,6 +555,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				var requestOptions = {
 					method: 'PUT',
+					mode: 'cors',
 					redirect: 'follow',
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -533,7 +568,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => console.log(result))
 					.catch(error => console.log('error', error));
 			},
-			
+
 			logout: () => {
 				const store = getStore();
 				setStore({ auth: false });
@@ -556,6 +591,98 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+
+			// ...
+			getGPT3Suggestion: async (actions) => {
+				try {
+					const prompt = 'Genera una lista de 5 artistas aleatorios';
+					const response = await fetch(process.env.BACKEND_URL + "/api/generate_recommendation", {
+						method: 'POST',
+						mode: 'cors',
+						headers: {
+							'Authorization': 'Bearer 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',
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({ prompt, model: "gpt-3.5-turbo" }),
+					});
+
+					if (response.ok) {
+						const result = await response.json();
+						const suggested_track_id = result.suggested_track_id || 'Error al obtener información de la pista';
+						const track_title = result.track_title || 'Error al obtener información de la pista';
+
+						const store = getStore();
+						store.suggested_track_id = result.suggested_track_id || 'Error al obtener información de la pista';
+						store.track_title = result.track_title || 'Error al obtener información de la pista';
+						setStore(store);
+
+						// Obtén las recomendaciones de canciones de Spotify
+						const spotifyAccessToken = 'tu_token_de_acceso_de_spotify'; // Reemplázalo con tu lógica para obtener el token
+						await actions.getActualSongRecommendations(result.userArtists, spotifyAccessToken);
+					} else {
+						console.error('Error al obtener sugerencia de OpenAI GPT-3:', response.status, response.statusText);
+
+						const store = getStore();
+						store.suggested_track_id = 'Error al obtener información de la pista';
+						store.track_title = 'Error al obtener información de la pista';
+					}
+				} catch (error) {
+					console.error('Error al obtener sugerencia de OpenAI GPT-3', error);
+
+					const store = getStore();
+					store.suggested_track_id = 'Error al obtener información de la pista';
+					store.track_title = 'Error al obtener información de la pista';
+				}
+			},
+
+			// Añade esta función a tu objeto actions
+			getSongRecommendations: async (userArtists) => {
+				try {
+					const actions = getActions();
+
+					// Llama a la función que realiza la llamada real al servidor
+					await actions.getActualSongRecommendations(userArtists);
+				} catch (error) {
+					console.error('Error al obtener recomendaciones de canciones', error);
+				}
+			},
+
+			// Otra función para realizar la llamada real al servidor
+			getActualSongRecommendations: async (userArtists, spotifyAccessToken) => {
+				try {
+					const response = await fetch("https://api.spotify.com/v1/recommendations", {
+						method: 'GET',
+						headers: {
+							'Authorization': `Bearer ${spotifyAccessToken}`,
+							'Content-Type': 'application/json',
+						},
+						// Aquí puedes personalizar los parámetros de la solicitud de recomendación de Spotify
+						// Consulta la documentación de Spotify para más detalles.
+					});
+
+					if (response.ok) {
+						const result = await response.json();
+						setStore({ songRecommendations: result.tracks });
+					} else if (response.status === 401) {
+						console.error('Respuesta inesperada del servidor para las recomendaciones de canciones:', response.status, response.statusText);
+					}
+				} catch (error) {
+					console.error('Error al obtener recomendaciones de canciones', error);
+				}
+			},
+
+			setSpotifyAccessToken: (token) => {
+				// Actualiza el token de acceso de Spotify en el estado
+				setStore({
+					spotifyAccessToken: token
+				});
+			},
+
+
+
+
+
+
 
 			changeColor: (index, color) => {
 				//get the store
