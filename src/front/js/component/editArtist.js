@@ -7,15 +7,18 @@ import PropTypes from "prop-types";
 export const EditArtist = () => {
     const { store, actions } = useContext(Context);
     const params = useParams();
-    const [name, setName] = useState(store.singleArtist.name)
-    const [url, setUrl] = useState(store.singleArtist.img_url)
+    const [name, setName] = useState("")
+    const [url, setUrl] = useState("")
     const navigate = useNavigate();
 
     useEffect(() => {
-        actions.getSingleArtist(params.artist_id)
-        setName(store.singleArtist.name);
-        setUrl(store.singleArtist.img_url);
-    }, [store.singleArtist])
+        actions.getSingleArtist(params.artist_id);
+    }, []);
+
+    useEffect(() => {
+        setName(store.singleArtist.name || "");
+        setUrl(store.singleArtist.img_url || "");
+    }, [store.singleArtist]);
 
     function sendData(e) {
         e.preventDefault();

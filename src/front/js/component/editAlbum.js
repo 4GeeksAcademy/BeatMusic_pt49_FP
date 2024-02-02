@@ -4,7 +4,7 @@ import "../../styles/home.css";
 import { useNavigate, useParams, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-export const EditAlbum = (props) => {
+export const EditAlbum = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
   const [name, setName] = useState("");
@@ -13,8 +13,11 @@ export const EditAlbum = (props) => {
 
   useEffect(() => {
     actions.getSingleAlbum(params.album_id);
-    setName(store.singleAlbum.name);
-    setUrl(store.singleAlbum.img_url);
+  }, []);
+
+  useEffect(() => {
+      setName(store.singleAlbum.name || "");
+      setUrl(store.singleAlbum.img_url || "");
   }, [store.singleAlbum]);
 
   function sendData(e) {

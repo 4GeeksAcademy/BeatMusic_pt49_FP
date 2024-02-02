@@ -7,15 +7,18 @@ import PropTypes from "prop-types";
 export const EditSong = () => {
     const { store, actions } = useContext(Context);
     const params = useParams();
-    const [name, setName] = useState(store.singleSong.name)
-    const [length, setLength] = useState(store.singleSong.length)
+    const [name, setName] = useState("")
+    const [length, setLength] = useState("")
     const navigate = useNavigate();
 
     useEffect(() => {
-        actions.getSingleSong(params.song_id)
-        setName(store.singleSong.name);
-        setLength(store.singleSong.length);
-    }, [store.singleSong])
+        actions.getSingleSong(params.song_id);
+    }, []);
+    
+    useEffect(() => {
+        setName(store.singleSong.name || "");
+        setLength(store.singleSong.length || "");
+    }, [store.singleSong]);
 
     function sendData(e) {
         e.preventDefault();
