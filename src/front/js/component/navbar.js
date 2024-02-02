@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo.png";
@@ -6,7 +6,6 @@ import "../../styles/home.css";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
-
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-black" aria-label="Offcanvas navbar large">
     		<div className="container">
