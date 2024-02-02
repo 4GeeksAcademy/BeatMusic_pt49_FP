@@ -20,6 +20,7 @@ import { Private } from "./pages/private";
 import { AdminLogin } from "./pages/adminLogin";
 import { AdminPrivate } from "./pages/adminPrivate";
 import { UserSettings } from "./pages/userSettings";
+import { MusicSuggestionApp } from "./component/MusicSuggestionApp";
 
 import { NewArtist } from "./component/newArtist";
 import { EditArtist } from "./component/editArtist";
@@ -65,6 +66,7 @@ const Layout = () => {
                         <Route element={<AdminPrivate />} path="/admin/private" />
                         <Route element={<Private />} path="/private/:user_id" />
                         <Route element={<UserSettings />} path="/account" />
+                        <Route element={<MusicSuggestionApp />} path="/recommendations" />
                         
                         <Route element={<NewSong />} path="/admin/newsong" />
                         <Route element={<EditSong />} path="/admin/editsong/:song_id" />
