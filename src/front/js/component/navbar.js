@@ -34,6 +34,13 @@ export const Navbar = () => {
 									</Link>
 								}
 							</li>
+							<li className="nav-item d-flex align-self-center mx-2">
+								{store.auth == false ? null :
+									<Link to="/recommendations">
+										<span className="nav-link active" aria-current="page">Recommendations</span>
+									</Link>
+								}
+							</li>
 							<li className="nav-item dropdown d-flex align-self-center mx-2">
 								{store.auth == false ? null :
 									<>
