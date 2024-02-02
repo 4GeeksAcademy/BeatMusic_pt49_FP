@@ -18,20 +18,21 @@ export const Private = () => {
     const artistMatch = actions.matchPercentage(userArtists, friendArtists)
     const albumMatch = actions.matchPercentage(userAlbums, friendAlbums)
     const songMatch = actions.matchPercentage(userSongs, friendSongs)
+    
     const [currentCounter, setCurrentCounter] = useState(0);
 
     useEffect(() => {
         if (store.favoriteArtists) {
             actions.getFavoriteArtists(params.user_id);
         }
-      }, [store.favoriteArtists]);
+    }, [store.favoriteArtists]);
 
     useEffect(() => {
         if (store.favoriteUserArtists) {
             actions.getFavoriteUserArtists();
         }
     }, [store.favoriteUserArtists]);
-    
+
     useEffect(() => {
         if (store.favoriteAlbums) {
             actions.getFavoriteAlbums(params.user_id);
@@ -230,5 +231,5 @@ export const Private = () => {
 };
 
 Private.propTypes = {
-	match: PropTypes.object
+    match: PropTypes.object
 };
