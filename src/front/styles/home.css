@@ -89,3 +89,9 @@ a {
 .tx-shadow {
     text-shadow: rgb(0, 0, 0) 1px 0 10px;
 }
+.dropdown-genre {
+    background-color: black;
+    color: white;
+    padding: 8px;
+    border-radius: 30px;
+}
